@@ -3,4 +3,5 @@ export default defineNuxtConfig({
 	app: {
 		baseURL: "/signature-app/",
 	},
+	ssr: false,
 });
