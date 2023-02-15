@@ -1,4 +1,5 @@
 <template>
+
   <div class="page-container">
     <div class="logo-container"><img class="logo" src="https://www.k2united.com/images/k2unitedlogo.png"></div>
 
@@ -15,17 +16,27 @@
           <option>CareerSafe</option>
         </select></label>
       <label for="name">Full Name *
-        <input id="name" type="text" v-model="name"></label>
+        <input id="name" type="text" v-model="name">
+      </label>
       <label for="position">Position/Seat Title *
-        <input id="email" type="text" v-model="position"></label>
+        <input id="email" type="text" v-model="position">
+      </label>
       <label for="certifications">Certifications (Comma seperated list)
-        <input id="certifications" type="text" v-model="certs"></label>
+        <input id="certifications" type="text" v-model="certs">
+      </label>
       <label for="office-phone">Office Phone
-        <input id="office-phone" type="text" v-model="officePhone"></label>
+        <input id="office-phone" type="text" v-model="officePhone">
+      </label>
       <label for="mobile-phone">Mobile Phone
-        <input id="mobile-phone" type="text" v-model="mobilePhone"></label>
+        <input id="mobile-phone" type="text" v-model="mobilePhone">
+      </label>
       <label for="fax-number">Fax Number
-        <input id="fax-number" type="text" v-model="faxNumber"></label>
+        <input id="fax-number" type="text" v-model="faxNumber">
+      </label>
+      <div class="optional-fields-cs" v-if="brand === 'CareerSafe'">
+        <input type="checkbox" v-model="scholarshipCheck"><label>Scholarship Text</label>
+        <input type="checkbox" v-model="customerCareCheck"><label>Are you Customer Care?</label>
+      </div>
       <div class="flex"> <button>
           Reset
         </button>
@@ -41,7 +52,7 @@
 
 
     <!-------------------------------- Start K2United Email Signature HTML------------------------------------->
-    <div id="table" v-if="brand === 'K2United'">
+    <div id="signature" v-if="brand === 'K2United'">
       <br>
       <table cellspacing="0" cellpadding="0" border="0"
         style="border-collapse: separate;table-layout: fixed;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;max-width:100%;"
@@ -75,14 +86,14 @@
           <tr>
             <td
               style="color:#545454;font-size:12px;mso-line-height-rule:exactly;line-height:1.2em;border-top:solid 1px #D3D3D3;padding-top:5px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><span v-if="mobilePhone" style="color:#545454;"><span
+              <p style="margin:0px;"><span v-if="validatePhone(mobilePhone)" style="color:#545454;"><span
                     style="font-weight:bold;color:#545454;">Mobile: <a href="tel:(999) 999-9999"
                       style="font-weight:normal;color:#545454;text-decoration:none;" target="_blank">{{
-                        mobilePhone
-                      }}</a></span> <span style="color:#D3D3D3;">|</span> </span><span style="color:#545454;"><span
-                    style="font-weight:bold;color:#545454;">Office: </span> <a href="tel:(999) 999-9999"
-                    style="color:#545454;text-decoration:none;" target="_blank">{{ officePhone }}</a> <span
-                    style="color:#D3D3D3;">|</span> </span><span style="color:#545454;"><span
+                        formatPhone(mobilePhone)
+                      }}</a></span> <span style="color:#D3D3D3;">| </span> </span><span style="color:#545454;"><span
+                    style="font-weight:bold;color:#545454;"> Office: </span> <a href="tel:(999) 999-9999"
+                    style="color:#545454;text-decoration:none;" target="_blank">{{ formatPhone(officePhone) }}</a>
+                  <span style="color:#D3D3D3;">|</span> </span><span style="color:#545454;"><span
                     style="font-weight:bold;color:#545454;">Fax: </span> <a href="tel:(999) 999-9999"
                     style="color:#545454;text-decoration:none;" target="_blank">{{ faxNumber }}</a></span></p>
             </td>
@@ -139,7 +150,7 @@
     <!-------------------------------- End K2United Email Signature HTML------------------------------------->
 
     <!-------------------------------- Start K2Share Email Signature HTML------------------------------------->
-    <div id="table" v-if="brand === 'K2Share'">
+    <div id="signature" v-if="brand === 'K2Share'">
       <br>
       <table cellspacing="0" cellpadding="0" border="0"
         style="border-collapse: separate;table-layout: fixed;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;max-width:100%;"
@@ -238,7 +249,7 @@
     <!-------------------------------- End K2Share Email Signature HTML------------------------------------->
 
     <!-------------------------------- Start CareerSafe Email Signature HTML------------------------------------->
-    <div id="table" v-if="brand === 'CareerSafe'">
+    <div id="signature" v-if="brand === 'CareerSafe'">
       <br>
       <table cellspacing="0" cellpadding="0" border="0"
         style="border-collapse: separate;table-layout: fixed;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;max-width:100%;"
@@ -334,6 +345,7 @@
           </tr>
         </tbody>
       </table>
+      <p v-if="scholarshipCheck">Scholarship Text Join our Scholarship THingy</p>
     </div>
     <!-------------------------------- End CareerSafe Email Signature HTML------------------------------------->
   </div>
@@ -347,20 +359,22 @@ export default {
       name: "FirstName Lastname",
       position: "Position/Seat Title",
       certs: "CERT1, CERT2, CERT3, CERT4, CERT5", //optional
-      officePhone: "(999) 999-9999",
+      officePhone: "(999) 999-9999", //optional
       mobilePhone: "(999) 999-9999", //optional
-      faxNumber: "(999) 999-9999" //optional
+      faxNumber: "(999) 999-9999", //optional
+      scholarshipCheck: "",
+      customerCareCheck: "",
     }
   },
   methods: {
     buttonPress() {
-      const table = document.querySelector("#table");
-      //document.getSelection().selectAllChildren(table); //if using execCommand
+      const signature = document.querySelector("#signature");
+      //document.getSelection().selectAllChildren(signature); //if using execCommand
       //document.execCommand("copy"); //execCommand is deprecated, ff users must manually enable ClipboardItem tho
 
       //Modern Clipboard API method
       const selection = [new ClipboardItem({
-        "text/html": new Blob([table.innerHTML], {
+        "text/html": new Blob([signature.innerHTML], {
           type: "text/html",
         })
       })];
@@ -372,6 +386,13 @@ export default {
         console.error('Failed to copy');
         document.querySelector("#btn-message").innerHTML = "Signature Copy Failed";
       });
+    },
+    formatPhone(input) {
+      const digits = input.match(/\d/g);
+      return `(${digits[0] + digits[1] + digits[2]}) ${+ digits[3] + digits[4] + digits[5]}-${digits[6] + digits[7] + digits[8] + digits[9]}`
+    },
+    validatePhone(input) {
+      return (input.match(/\d/g).length === 10)
     }
 
   }
@@ -423,8 +444,8 @@ select {
   min-width: 100%;
 }
 
-input[type="number"] {
-  appearance: textfield;
+.optional-fields-cs input {
+  min-width: 1.5rem;
 }
 
 #btn-message {
@@ -466,7 +487,7 @@ button:hover {
   margin: 0 10%;
 }
 
-#table {
+#signature {
   margin: 2rem 10% 4rem;
 }
 </style>
