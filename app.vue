@@ -1,27 +1,31 @@
 <template>
   <div class="page-container">
+    <div class="logo-container"><img class="logo" src="https://www.k2united.com/images/k2unitedlogo.png"></div>
+
     <h1>
-      K2United Branded Email Signature Generator
+      Branded Email Signature Generator
     </h1>
     <form>
 
-      <label for="brand-selector">Brand:
-        <select id="brand-selector" required v-model="brand">
+      <label for="brand-selector">Brand *
+        <select id="brand-selector" v-model="brand">
           <option disabled>--Select Brand--</option>
           <option>K2United</option>
           <option>K2Share</option>
           <option>CareerSafe</option>
         </select></label>
-      <label for="name">Full Name:
-        <input id="name" type="text" v-model="name" required></label>
-      <label for="position">Position/Seat Title:
-        <input id="email" type="text" v-model="position" required></label>
-      <label for="certifications">Certifications: (Comma seperated list)
+      <label for="name">Full Name *
+        <input id="name" type="text" v-model="name"></label>
+      <label for="position">Position/Seat Title *
+        <input id="email" type="text" v-model="position"></label>
+      <label for="certifications">Certifications (Comma seperated list)
         <input id="certifications" type="text" v-model="certs"></label>
-      <label for="office-phone">Office Phone:
-        <input id="office-phone" type="number" v-model="officePhone" required></label>
-      <label for="mobile-phone">Mobile Phone:
-        <input id="mobile-phone" type="number" v-model="mobilePhone"></label>
+      <label for="office-phone">Office Phone
+        <input id="office-phone" type="text" v-model="officePhone"></label>
+      <label for="mobile-phone">Mobile Phone
+        <input id="mobile-phone" type="text" v-model="mobilePhone"></label>
+      <label for="fax-number">Fax Number
+        <input id="fax-number" type="text" v-model="faxNumber"></label>
       <div class="flex"> <button>
           Reset
         </button>
@@ -33,7 +37,7 @@
     </form>
 
 
-    <div class="divider"></div>
+    <div class="divider" v-if="brand"></div>
 
 
     <!-------------------------------- Start K2United Email Signature HTML------------------------------------->
@@ -80,8 +84,7 @@
                     style="color:#545454;text-decoration:none;" target="_blank">{{ officePhone }}</a> <span
                     style="color:#D3D3D3;">|</span> </span><span style="color:#545454;"><span
                     style="font-weight:bold;color:#545454;">Fax: </span> <a href="tel:(999) 999-9999"
-                    style="color:#545454;text-decoration:none;" target="_blank">(999)
-                    999-9999</a></span></p>
+                    style="color:#545454;text-decoration:none;" target="_blank">{{ faxNumber }}</a></span></p>
             </td>
           </tr>
           <tr>
@@ -179,8 +182,7 @@
                     style="color:#545454;text-decoration:none;" target="_blank">{{ officePhone }}</a> <span
                     style="color:#D3D3D3;">|</span> </span><span style="color:#545454;"><span
                     style="font-weight:bold;color:#545454;">Fax: </span> <a href="tel:(999) 999-9999"
-                    style="color:#545454;text-decoration:none;" target="_blank">(999)
-                    999-9999</a></span></p>
+                    style="color:#545454;text-decoration:none;" target="_blank">{{ faxNumber }}</a></span></p>
             </td>
           </tr>
           <tr>
@@ -277,10 +279,9 @@
                       }}</a></span> <span style="color:#D3D3D3;">|</span> </span><span style="color:#545454;"><span
                     style="font-weight:bold;color:#545454;">Office: </span> <a href="tel:(999) 999-9999"
                     style="color:#545454;text-decoration:none;" target="_blank">{{ officePhone }}</a> <span
-                    style="color:#D3D3D3;">|</span> </span><span style="color:#545454;"><span
+                    style="color:#D3D3D3;">|</span> </span><span v-if="faxNumber" style="color:#545454;"><span
                     style="font-weight:bold;color:#545454;">Fax: </span> <a href="tel:(999) 999-9999"
-                    style="color:#545454;text-decoration:none;" target="_blank">(999)
-                    999-9999</a></span></p>
+                    style="color:#545454;text-decoration:none;" target="_blank">{{ faxNumber }}</a></span></p>
             </td>
           </tr>
           <tr>
@@ -347,7 +348,8 @@ export default {
       position: "Position/Seat Title",
       certs: "CERT1, CERT2, CERT3, CERT4, CERT5", //optional
       officePhone: "(999) 999-9999",
-      mobilePhone: "(999) 999-9999" //optional
+      mobilePhone: "(999) 999-9999", //optional
+      faxNumber: "(999) 999-9999" //optional
     }
   },
   methods: {
@@ -365,11 +367,9 @@ export default {
 
       navigator.clipboard.write(selection).then(() => {
         console.log('Content copied to clipboard');
-
         document.querySelector("#btn-message").innerHTML = "Signature Copied!";
       }, () => {
         console.error('Failed to copy');
-
         document.querySelector("#btn-message").innerHTML = "Signature Copy Failed";
       });
     }
@@ -386,24 +386,32 @@ body {
 
 .page-container {
   background-color: white;
-  ;
   max-width: 800px;
   margin: 2rem auto;
   border: solid 1px white;
-  border-radius: 50px 50px 50px 0px;
+  border-radius: 50px 50px 50px 0;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0 0;
 }
 
 h1 {
   text-align: center;
   font-family: trade-gothic-next, sans-serif;
-  font-size: 1.75rem;
+  font-weight: 500;
+  padding: 0 5%;
+  color: rgb(210, 0, 50);
 }
 
 form {
   display: grid;
   justify-content: center;
   font-family: trade-gothic-next, sans-serif;
-  margin-bottom: 2rem;
+  padding: 0 5%;
 }
 
 label {
@@ -424,15 +432,16 @@ input[type="number"] {
   text-align: center;
   font-style: italic;
   font-family: trade-gothic-next, sans-serif;
+  min-height: 1.5rem;
 }
 
 .flex {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 button {
-  margin: 1rem;
+  margin-top: 1rem;
   color: white;
   background-color: rgb(210, 0, 50);
   border-radius: 4px;
@@ -458,6 +467,6 @@ button:hover {
 }
 
 #table {
-  margin: 3rem;
+  margin: 2rem 10% 4rem;
 }
 </style>
