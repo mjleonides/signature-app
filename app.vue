@@ -90,7 +90,8 @@
                     style="font-weight:bold;color:#545454;">Mobile: <a href="tel:(999) 999-9999"
                       style="font-weight:normal;color:#545454;text-decoration:none;" target="_blank">{{
                         formatPhone(mobilePhone)
-                      }}</a></span> <span style="color:#D3D3D3;">| </span> </span><span style="color:#545454;"><span
+                      }}</a></span> <span style="color:#D3D3D3;">| </span> </span><span
+                  v-if="validatePhone(officePhone)" style="color:#545454;"><span
                     style="font-weight:bold;color:#545454;"> Office: </span> <a href="tel:(999) 999-9999"
                     style="color:#545454;text-decoration:none;" target="_blank">{{ formatPhone(officePhone) }}</a>
                   <span style="color:#D3D3D3;">|</span> </span><span style="color:#545454;"><span
@@ -392,7 +393,7 @@ export default {
       return `(${digits[0] + digits[1] + digits[2]}) ${+ digits[3] + digits[4] + digits[5]}-${digits[6] + digits[7] + digits[8] + digits[9]}`
     },
     validatePhone(input) {
-      return (input.match(/\d/g).length === 10)
+      return input && (input.match(/\d/g).length === 10)
     }
 
   }
