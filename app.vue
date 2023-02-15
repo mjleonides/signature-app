@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-container">
     <h1>
       K2United Branded Email Signature Generator
     </h1>
@@ -19,9 +19,9 @@
       <label for="certifications">Certifications: (Comma seperated list)
         <input id="certifications" type="text" v-model="certs"></label>
       <label for="office-phone">Office Phone:
-        <input id="office-phone" type="phone" v-model="officePhone" required></label>
+        <input id="office-phone" type="number" v-model="officePhone" required></label>
       <label for="mobile-phone">Mobile Phone:
-        <input id="mobile-phone" type="phone" v-model="mobilePhone"></label>
+        <input id="mobile-phone" type="number" v-model="mobilePhone"></label>
       <div class="flex"> <button>
           Reset
         </button>
@@ -29,11 +29,14 @@
           Copy to Clipboard
         </button>
       </div>
-
+      <p id="btn-message"></p>
     </form>
+
 
     <div class="divider"></div>
 
+
+    <!-------------------------------- Start K2United Email Signature HTML------------------------------------->
     <div id="table" v-if="brand === 'K2United'">
       <br>
       <table cellspacing="0" cellpadding="0" border="0"
@@ -130,7 +133,9 @@
         </tbody>
       </table>
     </div>
+    <!-------------------------------- End K2United Email Signature HTML------------------------------------->
 
+    <!-------------------------------- Start K2Share Email Signature HTML------------------------------------->
     <div id="table" v-if="brand === 'K2Share'">
       <br>
       <table cellspacing="0" cellpadding="0" border="0"
@@ -228,7 +233,9 @@
         </tbody>
       </table>
     </div>
+    <!-------------------------------- End K2Share Email Signature HTML------------------------------------->
 
+    <!-------------------------------- Start CareerSafe Email Signature HTML------------------------------------->
     <div id="table" v-if="brand === 'CareerSafe'">
       <br>
       <table cellspacing="0" cellpadding="0" border="0"
@@ -327,6 +334,7 @@
         </tbody>
       </table>
     </div>
+    <!-------------------------------- End CareerSafe Email Signature HTML------------------------------------->
   </div>
 </template>
 
@@ -357,8 +365,12 @@ export default {
 
       navigator.clipboard.write(selection).then(() => {
         console.log('Content copied to clipboard');
+
+        document.querySelector("#btn-message").innerHTML = "Signature Copied!";
       }, () => {
         console.error('Failed to copy');
+
+        document.querySelector("#btn-message").innerHTML = "Signature Copy Failed";
       });
     }
 
@@ -367,14 +379,31 @@ export default {
 </script>
 
 <style>
+body {
+  background-color: rgb(0, 36, 90);
+
+}
+
+.page-container {
+  background-color: white;
+  ;
+  max-width: 800px;
+  margin: 2rem auto;
+  border: solid 1px white;
+  border-radius: 50px 50px 50px 0px;
+}
+
 h1 {
   text-align: center;
+  font-family: trade-gothic-next, sans-serif;
+  font-size: 1.75rem;
 }
 
 form {
   display: grid;
-  min-width: 70vw;
   justify-content: center;
+  font-family: trade-gothic-next, sans-serif;
+  margin-bottom: 2rem;
 }
 
 label {
@@ -386,6 +415,17 @@ select {
   min-width: 100%;
 }
 
+input[type="number"] {
+  appearance: textfield;
+}
+
+#btn-message {
+  color: grey;
+  text-align: center;
+  font-style: italic;
+  font-family: trade-gothic-next, sans-serif;
+}
+
 .flex {
   display: flex;
   justify-content: center;
@@ -393,14 +433,31 @@ select {
 
 button {
   margin: 1rem;
+  color: white;
+  background-color: rgb(210, 0, 50);
+  border-radius: 4px;
+  border: 3px solid rgb(210, 0, 50);
+  font-family: var(--main-font);
+  font-weight: 700;
+  line-height: 1rem;
+  min-width: 9rem;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(170, 0, 36);
+  border-color: rgb(170, 0, 36);
 }
 
 .divider {
   overflow: hidden;
-  border: solid 1px black;
+  border-top: solid 0.5px grey;
+  margin: 0 10%;
 }
 
 #table {
-  margin: 1rem 15vw;
+  margin: 3rem;
 }
 </style>
