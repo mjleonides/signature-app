@@ -114,11 +114,12 @@
           </tr>
           <tr>
             <td style="color:#545454;font-size:9pt;height:21px;padding-top:5px;font-family:Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><a href="" target="_blank"
+              <p style="margin:0px;"><a href="https://www.facebook.com/K2ULLC/" target="_blank"
                   style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
                     src="https://k2united.com/images/social-facebook.png" width="21" height="21"
-                    style="border:0px;display:inline-block;" border="0" nosend="1" alt="Facebook" /></a>&nbsp;<a href=""
-                  target="_blank" style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
+                    style="border:0px;display:inline-block;" border="0" nosend="1" alt="Facebook" /></a>&nbsp;<a
+                  href="https://www.linkedin.com/company/42596" target="_blank"
+                  style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
                     src="https://k2united.com/images/social-linkedin.png" width="21" height="21"
                     style="border:0px;display:inline-block;" border="0" nosend="1" alt="LinkedIn" /></a></p>
             </td>
@@ -196,11 +197,12 @@
           </tr>
           <tr>
             <td style="color:#545454;font-size:9pt;height:21px;padding-top:5px;font-family:Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><a href="" target="_blank"
+              <p style="margin:0px;"><a href="https://www.facebook.com/K2SLLC/" target="_blank"
                   style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
                     src="https://k2united.com/images/social-facebook.png" width="21" height="21"
-                    style="border:0px;display:inline-block;" border="0" nosend="1" alt="Facebook" /></a>&nbsp;<a href=""
-                  target="_blank" style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
+                    style="border:0px;display:inline-block;" border="0" nosend="1" alt="Facebook" /></a>&nbsp;<a
+                  href="https://www.linkedin.com/company/89973752" target="_blank"
+                  style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
                     src="https://k2united.com/images/social-linkedin.png" width="21" height="21"
                     style="border:0px;display:inline-block;" border="0" nosend="1" alt="LinkedIn" /></a></p>
             </td>
@@ -276,17 +278,20 @@
           </tr>
           <tr>
             <td style="color:#545454;font-size:9pt;height:21px;padding-top:5px;font-family:Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><a href="" target="_blank"
+              <p style="margin:0px;"><a href="https://www.facebook.com/CareerSafe" target="_blank"
                   style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
                     src="https://k2united.com/images/social-facebook.png" width="21" height="21"
-                    style="border:0px;display:inline-block;" border="0" nosend="1" alt="Facebook" /></a>&nbsp;<a href=""
-                  target="_blank" style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
+                    style="border:0px;display:inline-block;" border="0" nosend="1" alt="Facebook" /></a>&nbsp;<a
+                  href="https://www.linkedin.com/company/2584998" target="_blank"
+                  style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
                     src="https://k2united.com/images/social-linkedin.png" width="21" height="21"
-                    style="border:0px;display:inline-block;" border="0" nosend="1" alt="LinkedIn" /></a>&nbsp;<a href=""
-                  target="_blank" style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
+                    style="border:0px;display:inline-block;" border="0" nosend="1" alt="LinkedIn" /></a>&nbsp;<a
+                  href="https://www.instagram.com/careersafe/" target="_blank"
+                  style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
                     src="https://k2united.com/images/social-instagram.png" width="21" height="21"
-                    style="border:0px;display:inline-block;" border="0" nosend="1" alt="Instagram" /></a>&nbsp;<a href=""
-                  target="_blank" style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
+                    style="border:0px;display:inline-block;" border="0" nosend="1" alt="Instagram" /></a>&nbsp;<a
+                  href="https://twitter.com/CareerSafe" target="_blank"
+                  style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
                     src="https://k2united.com/images/social-twitter.png" width="21" height="21"
                     style="border:0px;display:inline-block;" border="0" nosend="1" alt="Twitter" /></a>&nbsp;</p>
             </td>
