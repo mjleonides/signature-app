@@ -1,5 +1,4 @@
 <template>
-
   <div class="page-container">
     <div class="logo-container"><img class="logo" src="https://www.k2united.com/images/k2unitedlogo.png"></div>
 
@@ -24,19 +23,15 @@
       <label for="certifications">Certifications (Comma seperated list)
         <input id="certifications" type="text" v-model="certs">
       </label>
-      <label for="office-phone">Office Phone
-        <input id="office-phone" type="text" v-model="officePhone">
-      </label>
       <label for="mobile-phone">Mobile Phone
         <input id="mobile-phone" type="text" v-model="mobilePhone">
       </label>
-      <label for="fax-number">Fax Number
-        <input id="fax-number" type="text" v-model="faxNumber">
+      <label for="office-phone">Office Phone
+        <input id="office-phone" type="text" v-model="officePhone">
       </label>
-      <div class="optional-fields-cs" v-if="brand === 'CareerSafe'">
-        <input type="checkbox" v-model="scholarshipCheck"><label>Scholarship Text</label>
-        <input type="checkbox" v-model="customerCareCheck"><label>Are you Customer Care?</label>
-      </div>
+      <label for="fax">Fax Number
+        <input id="fax" type="text" v-model="fax">
+      </label>
       <div class="flex"> <button>
           Reset
         </button>
@@ -60,89 +55,70 @@
         <tbody>
           <tr>
             <td
-              style="color:#00245A;font-size:15px;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:1px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><span style="font-weight:bold;color:#00245A;font-size:15px;">{{ name }}
-                  <br>
-                  {{ certs }}</span></p>
+              style="color:#00245A;font-size:11pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:1px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
+              <p style="margin:0px;"><span style="font-weight:bold;color:#00245A;font-size:11pt;">{{ name }}<br
+                    v-if="validateCerts(certs)">{{ formatCerts(certs) }}</span></p>
             </td>
           </tr>
           <tr>
             <td
-              style="color:#545454;font-size:15px;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:10px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><span style="color:#545454;font-size:15px;"><em>{{ position }}</em></span></p>
+              style="color:#545454;font-size:11pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:10px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
+              <p style="margin:0px;"><span style="color:#545454;font-size:11pt;"><em>{{ position }}</em></span></p>
             </td>
           </tr>
 
           <tr>
             <td
-              style="color:#545454;font-size:12px;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:5px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
+              style="color:#545454;font-size:9pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:5px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><span style="font-weight:bold;letter-spacing:1px;"><a href="https://k2united.com/"
                     style="color:#00245A;text-decoration:none;text-transform:uppercase;"
-                    target="_blank">k2united.com</a></span> <span style="color:#D3D3D3;">|</span> A
-                K2United Brand</p>
+                    target="_blank">k2united.com</a></span></p>
             </td>
           </tr>
 
           <tr>
             <td
-              style="color:#545454;font-size:12px;mso-line-height-rule:exactly;line-height:1.2em;border-top:solid 1px #D3D3D3;padding-top:5px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
+              style="color:#545454;font-size:9pt;mso-line-height-rule:exactly;line-height:1.2em;border-top:solid 1px #D3D3D3;padding-top:5px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><span v-if="validatePhone(mobilePhone)" style="color:#545454;"><span
-                    style="font-weight:bold;color:#545454;">Mobile: <a href="tel:(999) 999-9999"
-                      style="font-weight:normal;color:#545454;text-decoration:none;" target="_blank">{{
-                        formatPhone(mobilePhone)
-                      }}</a></span> <span style="color:#D3D3D3;">| </span> </span><span
-                  v-if="validatePhone(officePhone)" style="color:#545454;"><span
-                    style="font-weight:bold;color:#545454;"> Office: </span> <a href="tel:(999) 999-9999"
-                    style="color:#545454;text-decoration:none;" target="_blank">{{ formatPhone(officePhone) }}</a>
-                  <span style="color:#D3D3D3;">|</span> </span><span style="color:#545454;"><span
-                    style="font-weight:bold;color:#545454;">Fax: </span> <a href="tel:(999) 999-9999"
-                    style="color:#545454;text-decoration:none;" target="_blank">{{ faxNumber }}</a></span></p>
-            </td>
-          </tr>
-          <tr>
-            <td
-              style="color:#545454;font-size:12px;mso-line-height-rule:exactly;line-height:1.2em;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
+                    style="font-weight:bold;color:#545454;">Mobile:</span> <a :href="'tel:' + formatPhone(mobilePhone)"
+                    style="color:#545454;text-decoration:none;" target="_blank">{{ formatPhone(mobilePhone) }}</a> <span
+                    style="color:#D3D3D3;">| </span> </span><span v-if="validatePhone(officePhone)"
+                  style="color:#545454;"><span style="font-weight:bold;color:#545454;">Office: </span> <a
+                    :href="'tel:' + formatPhone(officePhone)" style="color:#545454;text-decoration:none;"
+                    target="_blank">{{ formatPhone(officePhone) }}</a> <span style="color:#D3D3D3;">| </span> </span><span
+                  v-if="validatePhone(fax)" style="color:#545454;"><span style="font-weight:bold;color:#545454;">Fax:
+                  </span> <a :href="'tel:' + formatPhone(fax)" style="color:#545454;text-decoration:none;"
+                    target="_blank">{{ formatPhone(fax) }}</a></span></p>
               <p style="margin:0px;">1005 University Drive East, College Station, TX 77840</p>
             </td>
           </tr>
 
-
           <tr>
             <td
-              style="color:#00245A;font-size:12px;height:45px;padding-top:5px;padding-bottom:5px;;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
+              style="color:#00245A;font-size:9pt;height:45px;padding-top:5px;padding-bottom:5px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><a href="https://k2united.com/" style="border:0px;display:block;height:45px;"
                   target="_blank">
-                  <img src="https://k2united.com/images/logo-k2united-email.png" width="192" height="45"
+                  <img src="https://k2united.com/images/logo-k2united-email.png" width="195" height="45"
                     style="display:block;border:0px;" border="0" nosend="1" alt="K2United" /></a></p>
             </td>
           </tr>
 
           <tr>
             <td
-              style="color:#545454;font-size:12px;mso-line-height-rule:exactly;line-height:1.2em;padding-top:5px;border-top:solid 1px #D3D3D3;font-family:'Lato', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><span style="color:#545454;">Certified Great Place to Work <span
-                    style="color:#D3D3D3;">|</span> Certified SBA HUBZone <span style="color:#D3D3D3;">|</span>
-                  Certified
-                  Veteran-Owned Small Business (VOSB)</span>
-              </p>
+              style="color:#545454;font-size:9pt;mso-line-height-rule:exactly;line-height:1.2em;padding-top:2px;border-top:solid 1px #D3D3D3;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
+              <p style="margin:0px;"><span style="color:#545454;">Certified Great Place to Work<sup>&reg;</sup> <span
+                    style="color:#D3D3D3;">|</span> Certified Veteran-Owned Small Business (VOSB)</span></p>
             </td>
           </tr>
           <tr>
-            <td
-              style="color:#545454;font-size:12px;height:21px;padding-top:5px;font-family:Arial, Helvetica, sans-serif;">
+            <td style="color:#545454;font-size:9pt;height:21px;padding-top:5px;font-family:Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><a href="" target="_blank"
                   style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
                     src="https://k2united.com/images/social-facebook.png" width="21" height="21"
                     style="border:0px;display:inline-block;" border="0" nosend="1" alt="Facebook" /></a>&nbsp;<a href=""
                   target="_blank" style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
                     src="https://k2united.com/images/social-linkedin.png" width="21" height="21"
-                    style="border:0px;display:inline-block;" border="0" nosend="1" alt="LinkedIn" /></a>&nbsp;<a href=""
-                  target="_blank" style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
-                    src="https://k2united.com/images/social-instagram.png" width="21" height="21"
-                    style="border:0px;display:inline-block;" border="0" nosend="1" alt="Instagram" /></a>&nbsp;<a
-                  href="" target="_blank" style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
-                    src="https://k2united.com/images/social-twitter.png" width="21" height="21"
-                    style="border:0px;display:inline-block;" border="0" nosend="1" alt="Twitter" /></a>&nbsp;</p>
+                    style="border:0px;display:inline-block;" border="0" nosend="1" alt="LinkedIn" /></a></p>
             </td>
           </tr>
         </tbody>
@@ -159,89 +135,69 @@
         <tbody>
           <tr>
             <td
-              style="color:#00245A;font-size:15px;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:1px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><span style="font-weight:bold;color:#00245A;font-size:15px;">{{ name }}
-                  <br>
-                  {{ certs }}</span></p>
+              style="color:#231F20;font-size:11pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:1px;font-family:'Lato', Arial, Helvetica, sans-serif;">
+              <p style="margin:0px;"><span style="font-weight:bold;color:#231F20;font-size:11pt;">{{ name }}<br
+                    v-if="validateCerts(certs)">{{ formatCerts(certs) }}</span></p>
             </td>
           </tr>
           <tr>
             <td
-              style="color:#545454;font-size:15px;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:10px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><span style="color:#545454;font-size:15px;"><em>{{ position }}</em></span></p>
-            </td>
-          </tr>
-
-          <tr>
-            <td
-              style="color:#545454;font-size:12px;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:5px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><span style="font-weight:bold;letter-spacing:1px;"><a href="https://k2united.com/"
-                    style="color:#00245A;text-decoration:none;text-transform:uppercase;"
-                    target="_blank">k2united.com</a></span> <span style="color:#D3D3D3;">|</span> A
-                K2United Brand</p>
-            </td>
-          </tr>
-
-          <tr>
-            <td
-              style="color:#545454;font-size:12px;mso-line-height-rule:exactly;line-height:1.2em;border-top:solid 1px #D3D3D3;padding-top:5px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><span v-if="mobilePhone" style="color:#545454;"><span
-                    style="font-weight:bold;color:#545454;">Mobile: <a href="tel:(999) 999-9999"
-                      style="font-weight:normal;color:#545454;text-decoration:none;" target="_blank">{{
-                        mobilePhone
-                      }}</a></span> <span style="color:#D3D3D3;">|</span> </span><span style="color:#545454;"><span
-                    style="font-weight:bold;color:#545454;">Office: </span> <a href="tel:(999) 999-9999"
-                    style="color:#545454;text-decoration:none;" target="_blank">{{ officePhone }}</a> <span
-                    style="color:#D3D3D3;">|</span> </span><span style="color:#545454;"><span
-                    style="font-weight:bold;color:#545454;">Fax: </span> <a href="tel:(999) 999-9999"
-                    style="color:#545454;text-decoration:none;" target="_blank">{{ faxNumber }}</a></span></p>
+              style="color:#545454;font-size:11pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:10px;font-family:'Lato', Arial, Helvetica, sans-serif;">
+              <p style="margin:0px;"><span style="color:#545454;font-size:11pt;"><em>Position/Seat Title</em></span></p>
             </td>
           </tr>
           <tr>
             <td
-              style="color:#545454;font-size:12px;mso-line-height-rule:exactly;line-height:1.2em;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
+              style="color:#545454;font-size:9pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:5px;font-family:'Lato', Arial, Helvetica, sans-serif;">
+              <p style="margin:0px;"><span style="font-weight:bold;letter-spacing:1px;text-transform:uppercase;"><a
+                    href="https://www.k2share.com/" style="color:#231F20;text-decoration:none;"
+                    target="_blank">k2share.com</a></span> <span style="color:#D3D3D3;">|</span> A K2United Brand</p>
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="color:#545454;font-size:9pt;mso-line-height-rule:exactly;line-height:1.2em;border-top:solid 1px #D3D3D3;padding-top:5px;font-family:'Lato', Arial, Helvetica, sans-serif;">
+              <p style="margin:0px;"><span v-if="validatePhone(mobilePhone)" style="color:#545454;"><span
+                    style="font-weight:bold;color:#545454;">Mobile:</span> <a :href="'tel:' + formatPhone(mobilePhone)"
+                    style="color:#545454;text-decoration:none;" target="_blank">{{ formatPhone(mobilePhone) }}</a> <span
+                    style="color:#D3D3D3;">| </span> </span><span v-if="validatePhone(officePhone)"
+                  style="color:#545454;"><span style="font-weight:bold;color:#545454;">Office: </span> <a
+                    :href="'tel:' + formatPhone(officePhone)" style="color:#545454;text-decoration:none;"
+                    target="_blank">{{ formatPhone(officePhone) }}</a> <span style="color:#D3D3D3;">| </span> </span><span
+                  v-if="validatePhone(fax)" style="color:#545454;"><span style="font-weight:bold;color:#545454;">Fax:
+                  </span> <a :href="'tel:' + formatPhone(fax)" style="color:#545454;text-decoration:none;"
+                    target="_blank">{{ formatPhone(fax) }}</a></span></p>
               <p style="margin:0px;">1005 University Drive East, College Station, TX 77840</p>
             </td>
           </tr>
 
-
           <tr>
             <td
-              style="color:#00245A;font-size:12px;height:45px;padding-top:5px;padding-bottom:5px;;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><a href="https://k2united.com/" style="border:0px;display:block;height:45px;"
+              style="color:#231F20;font-size:9pt;height:36px;padding-top:10px;padding-bottom:10px;font-family:'Lato', Arial, Helvetica, sans-serif;">
+              <p style="margin:0px;"><a href="https://www.k2share.com/" style="border:0px;display:block;height:36px;"
                   target="_blank">
-                  <img src="https://www.k2share.com/content/graphics/logos/K2SHARE-Logo-HORIZONTAL-W-250w.png"
-                    width="192" height="45" style="display:block;border:0px;" border="0" nosend="1"
-                    alt="K2United" /></a></p>
+                  <img src="https://www.k2share.com/content/graphics/logos/logo-k2share-email.png" width="178" height="36"
+                    style="display:block;border:0px;" border="0" nosend="1" alt="K2Share" /></a></p>
             </td>
           </tr>
 
           <tr>
             <td
-              style="color:#545454;font-size:12px;mso-line-height-rule:exactly;line-height:1.2em;padding-top:5px;border-top:solid 1px #D3D3D3;font-family:'Lato', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><span style="color:#545454;">Certified Great Place to Work <span
-                    style="color:#D3D3D3;">|</span> Certified SBA HUBZone <span style="color:#D3D3D3;">|</span>
-                  Certified
-                  Veteran-Owned Small Business (VOSB)</span>
-              </p>
+              style="color:#545454;font-size:9pt;mso-line-height-rule:exactly;line-height:1.2em;padding-top:2px;border-top:solid 1px #D3D3D3;font-family:'Lato', Arial, Helvetica, sans-serif;">
+              <p style="margin:0px;"><span style="color:#545454;">Certified SBA HUBZone <span
+                    style="color:#D3D3D3;">|</span> Certified Great Place to Work<sup>&reg;</sup> <span
+                    style="color:#D3D3D3;">|</span> Certified Veteran-Owned Small Business (VOSB)</span></p>
             </td>
           </tr>
           <tr>
-            <td
-              style="color:#545454;font-size:12px;height:21px;padding-top:5px;font-family:Arial, Helvetica, sans-serif;">
+            <td style="color:#545454;font-size:9pt;height:21px;padding-top:5px;font-family:Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><a href="" target="_blank"
                   style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
                     src="https://k2united.com/images/social-facebook.png" width="21" height="21"
                     style="border:0px;display:inline-block;" border="0" nosend="1" alt="Facebook" /></a>&nbsp;<a href=""
                   target="_blank" style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
                     src="https://k2united.com/images/social-linkedin.png" width="21" height="21"
-                    style="border:0px;display:inline-block;" border="0" nosend="1" alt="LinkedIn" /></a>&nbsp;<a href=""
-                  target="_blank" style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
-                    src="https://k2united.com/images/social-instagram.png" width="21" height="21"
-                    style="border:0px;display:inline-block;" border="0" nosend="1" alt="Instagram" /></a>&nbsp;<a
-                  href="" target="_blank" style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
-                    src="https://k2united.com/images/social-twitter.png" width="21" height="21"
-                    style="border:0px;display:inline-block;" border="0" nosend="1" alt="Twitter" /></a>&nbsp;</p>
+                    style="border:0px;display:inline-block;" border="0" nosend="1" alt="LinkedIn" /></a></p>
             </td>
           </tr>
         </tbody>
@@ -258,77 +214,61 @@
         <tbody>
           <tr>
             <td
-              style="color:#00245A;font-size:15px;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:1px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><span style="font-weight:bold;color:#00245A;font-size:15px;">{{ name }}
-                  <br>
-                  {{ certs }}</span></p>
+              style="color:#044C7A;font-size:11pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:1px;font-family:'Open Sans', Arial, Helvetica, sans-serif;">
+              <p style="margin:0px;"><span style="font-weight:bold;color:#044C7A;font-size:11pt;">{{ name }}<br
+                    v-if="validateCerts(certs)">{{ formatCerts(certs) }}</span></p>
             </td>
           </tr>
           <tr>
             <td
-              style="color:#545454;font-size:15px;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:10px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><span style="color:#545454;font-size:15px;"><em>{{ position }}</em></span></p>
-            </td>
-          </tr>
-
-          <tr>
-            <td
-              style="color:#545454;font-size:12px;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:5px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><span style="font-weight:bold;letter-spacing:1px;"><a href="https://k2united.com/"
-                    style="color:#00245A;text-decoration:none;text-transform:uppercase;"
-                    target="_blank">k2united.com</a></span> <span style="color:#D3D3D3;">|</span> A
-                K2United Brand</p>
-            </td>
-          </tr>
-
-          <tr>
-            <td
-              style="color:#545454;font-size:12px;mso-line-height-rule:exactly;line-height:1.2em;border-top:solid 1px #D3D3D3;padding-top:5px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><span v-if="mobilePhone" style="color:#545454;"><span
-                    style="font-weight:bold;color:#545454;">Mobile: <a href="tel:(999) 999-9999"
-                      style="font-weight:normal;color:#545454;text-decoration:none;" target="_blank">{{
-                        mobilePhone
-                      }}</a></span> <span style="color:#D3D3D3;">|</span> </span><span style="color:#545454;"><span
-                    style="font-weight:bold;color:#545454;">Office: </span> <a href="tel:(999) 999-9999"
-                    style="color:#545454;text-decoration:none;" target="_blank">{{ officePhone }}</a> <span
-                    style="color:#D3D3D3;">|</span> </span><span v-if="faxNumber" style="color:#545454;"><span
-                    style="font-weight:bold;color:#545454;">Fax: </span> <a href="tel:(999) 999-9999"
-                    style="color:#545454;text-decoration:none;" target="_blank">{{ faxNumber }}</a></span></p>
+              style="color:#545454;font-size:11pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:10px;font-family:'Open Sans', Arial, Helvetica, sans-serif;">
+              <p style="margin:0px;"><span style="color:#545454;font-size:11pt;"><em>{{ position }}</em></span></p>
             </td>
           </tr>
           <tr>
             <td
-              style="color:#545454;font-size:12px;mso-line-height-rule:exactly;line-height:1.2em;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
+              style="color:#545454;font-size:9pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:5px;font-family:'Open Sans', Arial, Helvetica, sans-serif;">
+              <p style="margin:0px;"><span style="font-weight:bold;"><a href="https://careersafeonline.com/"
+                    style="color:#044C7A;text-decoration:none;text-transform:uppercase;"
+                    target="_blank">careersafeonline.com</a></span> <span style="color:#D3D3D3;">|</span> A K2United Brand
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td
+              style="color:#545454;font-size:9pt;mso-line-height-rule:exactly;line-height:1.2em;border-top:solid 1px #D3D3D3;padding-top:5px;font-family:'Open Sans', Arial, Helvetica, sans-serif;">
+              <p style="margin:0px;"><span v-if="validatePhone(mobilePhone)" style="color:#545454;"><span
+                    style="font-weight:bold;color:#545454;">Mobile:</span> <a :href="'tel:' + formatPhone(mobilePhone)"
+                    style="color:#545454;text-decoration:none;" target="_blank">{{ formatPhone(mobilePhone) }}</a> <span
+                    style="color:#D3D3D3;">| </span> </span><span v-if="validatePhone(officePhone)"
+                  style="color:#545454;"><span style="font-weight:bold;color:#545454;">Office: </span> <a
+                    :href="'tel:' + formatPhone(officePhone)" style="color:#545454;text-decoration:none;"
+                    target="_blank">{{ formatPhone(officePhone) }}</a> <span style="color:#D3D3D3;">| </span> </span><span
+                  v-if="validatePhone(fax)" style="color:#545454;"><span style="font-weight:bold;color:#545454;">Fax:
+                  </span> <a :href="'tel:' + formatPhone(fax)" style="color:#545454;text-decoration:none;"
+                    target="_blank">{{ formatPhone(fax) }}</a></span></p>
               <p style="margin:0px;">1005 University Drive East, College Station, TX 77840</p>
             </td>
           </tr>
 
-
           <tr>
             <td
-              style="color:#00245A;font-size:12px;height:45px;padding-top:5px;padding-bottom:5px;;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><a href="https://k2united.com/" style="border:0px;display:block;height:45px;"
+              style="color:#044C7A;font-size:9pt;height:36px;padding-top:10px;padding-bottom:10px;font-family:'Open Sans', Arial, Helvetica, sans-serif;">
+              <p style="margin:0px;"><a href="https://careersafeonline.com/" style="border:0px;display:block;height:36px;"
                   target="_blank">
-                  <img src="https://www.careersafeonline.com/images/careersafe-logo-2022-green-white-white-large.png"
-                    width="192" height="45" style="display:block;border:0px;" border="0" nosend="1"
-                    alt="K2United" /></a>
-              </p>
+                  <img src="https://www.careersafeonline.com/images/logo-careersafe-email.png" width="200" height="36"
+                    style="display:block;border:0px;" border="0" nosend="1" alt="CareerSafe" /></a></p>
             </td>
           </tr>
 
           <tr>
             <td
-              style="color:#545454;font-size:12px;mso-line-height-rule:exactly;line-height:1.2em;padding-top:5px;border-top:solid 1px #D3D3D3;font-family:'Lato', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><span style="color:#545454;">Certified Great Place to Work <span
-                    style="color:#D3D3D3;">|</span> Certified SBA HUBZone <span style="color:#D3D3D3;">|</span>
-                  Certified
-                  Veteran-Owned Small Business (VOSB)</span>
-              </p>
+              style="color:#545454;font-size:9pt;mso-line-height-rule:exactly;line-height:1.2em;padding-top:2px;border-top:solid 1px #D3D3D3;font-family:'Open Sans', Arial, Helvetica, sans-serif;">
+              <p style="margin:0px;"><span style="color:#545454;">Certified Great Place to Work<sup>&reg;</sup></span></p>
             </td>
           </tr>
           <tr>
-            <td
-              style="color:#545454;font-size:12px;height:21px;padding-top:5px;font-family:Arial, Helvetica, sans-serif;">
+            <td style="color:#545454;font-size:9pt;height:21px;padding-top:5px;font-family:Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><a href="" target="_blank"
                   style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
                     src="https://k2united.com/images/social-facebook.png" width="21" height="21"
@@ -338,18 +278,17 @@
                     style="border:0px;display:inline-block;" border="0" nosend="1" alt="LinkedIn" /></a>&nbsp;<a href=""
                   target="_blank" style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
                     src="https://k2united.com/images/social-instagram.png" width="21" height="21"
-                    style="border:0px;display:inline-block;" border="0" nosend="1" alt="Instagram" /></a>&nbsp;<a
-                  href="" target="_blank" style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
+                    style="border:0px;display:inline-block;" border="0" nosend="1" alt="Instagram" /></a>&nbsp;<a href=""
+                  target="_blank" style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
                     src="https://k2united.com/images/social-twitter.png" width="21" height="21"
                     style="border:0px;display:inline-block;" border="0" nosend="1" alt="Twitter" /></a>&nbsp;</p>
             </td>
           </tr>
         </tbody>
       </table>
-      <p v-if="scholarshipCheck">Scholarship Text Join our Scholarship THingy</p>
     </div>
     <!-------------------------------- End CareerSafe Email Signature HTML------------------------------------->
-  </div>
+</div>
 </template>
 
 <script>
@@ -357,14 +296,12 @@ export default {
   data() {
     return {
       brand: "",
-      name: "FirstName Lastname",
+      name: "FirstName Lastname", // {{ name }}<br v-if="validateCerts(certs)">{{ formatCerts(certs) }}
       position: "Position/Seat Title",
       certs: "CERT1, CERT2, CERT3, CERT4, CERT5", //optional
-      officePhone: "(999) 999-9999", //optional
-      mobilePhone: "(999) 999-9999", //optional
-      faxNumber: "(999) 999-9999", //optional
-      scholarshipCheck: "",
-      customerCareCheck: "",
+      mobilePhone: "(999) 999-9999", //optional :href="'tel:' + formatPhone(mobilePhone)"
+      officePhone: "(999) 999-9999", //optional :href="'tel:' + formatPhone(officePhone)"
+      fax: "(999) 999-9999", //optional
     }
   },
   methods: {
@@ -394,6 +331,14 @@ export default {
     },
     validatePhone(input) {
       return input && (input.match(/\d/g).length === 10)
+    },
+    formatCerts(input) {
+      const certArray = input.match(/([a-z])+/gi);
+      return (certArray && certArray.length > 2) ? certArray.join(", ") : (certArray) ? ", " + certArray.join(", ") : "";
+    },
+    validateCerts(input) {
+      const certArray = input.match(/([a-z])+/gi);
+      return certArray && certArray.length > 2
     }
 
   }
