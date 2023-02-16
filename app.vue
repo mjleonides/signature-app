@@ -143,7 +143,7 @@
           <tr>
             <td
               style="color:#545454;font-size:11pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:10px;font-family:'Lato', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><span style="color:#545454;font-size:11pt;"><em>Position/Seat Title</em></span></p>
+              <p style="margin:0px;"><span style="color:#545454;font-size:11pt;"><em>{{ position }}</em></span></p>
             </td>
           </tr>
           <tr>
