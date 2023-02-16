@@ -82,10 +82,12 @@
               <p style="margin:0px;"><span v-if="validatePhone(mobilePhone)" style="color:#545454;"><span
                     style="font-weight:bold;color:#545454;">Mobile:</span> <a :href="'tel:' + formatPhone(mobilePhone)"
                     style="color:#545454;text-decoration:none;" target="_blank">{{ formatPhone(mobilePhone) }}</a> <span
-                    style="color:#D3D3D3;">| </span> </span><span v-if="validatePhone(officePhone)"
-                  style="color:#545454;"><span style="font-weight:bold;color:#545454;">Office: </span> <a
-                    :href="'tel:' + formatPhone(officePhone)" style="color:#545454;text-decoration:none;"
-                    target="_blank">{{ formatPhone(officePhone) }}</a> <span style="color:#D3D3D3;">| </span> </span><span
+                    v-if="validatePhone(mobilePhone) && validatePhone(officePhone) || validatePhone(mobilePhone) && validatePhone(fax)"
+                    style="color:#D3D3D3;">| </span>
+                </span><span v-if="validatePhone(officePhone)" style="color:#545454;"><span
+                    style="font-weight:bold;color:#545454;">Office: </span> <a :href="'tel:' + formatPhone(officePhone)"
+                    style="color:#545454;text-decoration:none;" target="_blank">{{ formatPhone(officePhone) }}</a> <span
+                    v-if="validatePhone(officePhone) && validatePhone(fax)" style="color:#D3D3D3;">| </span> </span><span
                   v-if="validatePhone(fax)" style="color:#545454;"><span style="font-weight:bold;color:#545454;">Fax:
                   </span> <a :href="'tel:' + formatPhone(fax)" style="color:#545454;text-decoration:none;"
                     target="_blank">{{ formatPhone(fax) }}</a></span></p>
@@ -151,7 +153,8 @@
               style="color:#545454;font-size:9pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:5px;font-family:'Lato', Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><span style="font-weight:bold;letter-spacing:1px;text-transform:uppercase;"><a
                     href="https://www.k2share.com/" style="color:#231F20;text-decoration:none;"
-                    target="_blank">k2share.com</a></span> <span style="color:#D3D3D3;">|</span> A K2United Brand</p>
+                    target="_blank">k2share.com</a></span> <span style="color:#D3D3D3;">|</span> A <a
+                  href="https://www.k2united.com" style="color:#545454;text-decoration: none;">K2United</a> Brand</p>
             </td>
           </tr>
           <tr>
@@ -160,10 +163,12 @@
               <p style="margin:0px;"><span v-if="validatePhone(mobilePhone)" style="color:#545454;"><span
                     style="font-weight:bold;color:#545454;">Mobile:</span> <a :href="'tel:' + formatPhone(mobilePhone)"
                     style="color:#545454;text-decoration:none;" target="_blank">{{ formatPhone(mobilePhone) }}</a> <span
-                    style="color:#D3D3D3;">| </span> </span><span v-if="validatePhone(officePhone)"
-                  style="color:#545454;"><span style="font-weight:bold;color:#545454;">Office: </span> <a
-                    :href="'tel:' + formatPhone(officePhone)" style="color:#545454;text-decoration:none;"
-                    target="_blank">{{ formatPhone(officePhone) }}</a> <span style="color:#D3D3D3;">| </span> </span><span
+                    v-if="validatePhone(mobilePhone) && validatePhone(officePhone) || validatePhone(mobilePhone) && validatePhone(fax)"
+                    style="color:#D3D3D3;">| </span>
+                </span><span v-if="validatePhone(officePhone)" style="color:#545454;"><span
+                    style="font-weight:bold;color:#545454;">Office: </span> <a :href="'tel:' + formatPhone(officePhone)"
+                    style="color:#545454;text-decoration:none;" target="_blank">{{ formatPhone(officePhone) }}</a> <span
+                    v-if="validatePhone(officePhone) && validatePhone(fax)" style="color:#D3D3D3;">| </span> </span><span
                   v-if="validatePhone(fax)" style="color:#545454;"><span style="font-weight:bold;color:#545454;">Fax:
                   </span> <a :href="'tel:' + formatPhone(fax)" style="color:#545454;text-decoration:none;"
                     target="_blank">{{ formatPhone(fax) }}</a></span></p>
@@ -230,8 +235,8 @@
               style="color:#545454;font-size:9pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:5px;font-family:'Open Sans', Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><span style="font-weight:bold;"><a href="https://careersafeonline.com/"
                     style="color:#044C7A;text-decoration:none;text-transform:uppercase;"
-                    target="_blank">careersafeonline.com</a></span> <span style="color:#D3D3D3;">|</span> A K2United Brand
-              </p>
+                    target="_blank">careersafeonline.com</a></span> <span style="color:#D3D3D3;">|</span>A <a
+                  href="https://www.k2united.com" style="color:#545454;text-decoration: none;">K2United</a> Brand</p>
             </td>
           </tr>
           <tr>
@@ -240,10 +245,12 @@
               <p style="margin:0px;"><span v-if="validatePhone(mobilePhone)" style="color:#545454;"><span
                     style="font-weight:bold;color:#545454;">Mobile:</span> <a :href="'tel:' + formatPhone(mobilePhone)"
                     style="color:#545454;text-decoration:none;" target="_blank">{{ formatPhone(mobilePhone) }}</a> <span
-                    style="color:#D3D3D3;">| </span> </span><span v-if="validatePhone(officePhone)"
-                  style="color:#545454;"><span style="font-weight:bold;color:#545454;">Office: </span> <a
-                    :href="'tel:' + formatPhone(officePhone)" style="color:#545454;text-decoration:none;"
-                    target="_blank">{{ formatPhone(officePhone) }}</a> <span style="color:#D3D3D3;">| </span> </span><span
+                    v-if="validatePhone(mobilePhone) && validatePhone(officePhone) || validatePhone(mobilePhone) && validatePhone(fax)"
+                    style="color:#D3D3D3;">| </span>
+                </span><span v-if="validatePhone(officePhone)" style="color:#545454;"><span
+                    style="font-weight:bold;color:#545454;">Office: </span> <a :href="'tel:' + formatPhone(officePhone)"
+                    style="color:#545454;text-decoration:none;" target="_blank">{{ formatPhone(officePhone) }}</a> <span
+                    v-if="validatePhone(officePhone) && validatePhone(fax)" style="color:#D3D3D3;">| </span> </span><span
                   v-if="validatePhone(fax)" style="color:#545454;"><span style="font-weight:bold;color:#545454;">Fax:
                   </span> <a :href="'tel:' + formatPhone(fax)" style="color:#545454;text-decoration:none;"
                     target="_blank">{{ formatPhone(fax) }}</a></span></p>
