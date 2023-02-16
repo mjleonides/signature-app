@@ -320,6 +320,7 @@ export default {
       navigator.clipboard.write(selection).then(() => {
         console.log('Content copied to clipboard');
         document.querySelector("#btn-message").innerHTML = "Signature Copied!";
+        setTimeout(() => { document.querySelector("#btn-message").innerHTML = "" }, 1000)
       }, () => {
         console.error('Failed to copy');
         document.querySelector("#btn-message").innerHTML = "Signature Copy Failed";
