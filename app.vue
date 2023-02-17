@@ -310,7 +310,7 @@ export default {
       brand: "",
       name: "FirstName Lastname", // {{ name }}<br v-if="validateCerts(certs)">{{ formatCerts(certs) }}
       position: "Position/Seat Title",
-      certs: "CERT1, CERT2, CERT3, CERT4, CERT5", //optional
+      certs: "CERT, CERT, CERT, CERT, CERT", //optional
       mobilePhone: "(999) 999-9999", //optional :href="'tel:' + formatPhone(mobilePhone)"
       officePhone: "(999) 999-9999", //optional :href="'tel:' + formatPhone(officePhone)"
       fax: "(999) 999-9999", //optional
@@ -347,11 +347,11 @@ export default {
       return (phoneArray?.length === 10)
     },
     formatCerts(input) {
-      const certArray = input.match(/([a-z])+/gi);
+      const certArray = input.match(/([a-z\.])+/gi);
       return (certArray?.length > 2) ? certArray.join(", ") : (certArray) ? ", " + certArray.join(", ") : "";
     },
     validateCerts(input) {
-      const certArray = input.match(/([a-z])+/gi);
+      const certArray = input.match(/([a-z\.])+/gi);
       return (certArray?.length > 2)
     }
 
