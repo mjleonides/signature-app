@@ -344,15 +344,15 @@ export default {
     },
     validatePhone(input) {
       const phoneArray = input.match(/\d/g);
-      return phoneArray && (phoneArray.length === 10)
+      return (phoneArray?.length === 10)
     },
     formatCerts(input) {
       const certArray = input.match(/([a-z])+/gi);
-      return (certArray && certArray.length > 2) ? certArray.join(", ") : (certArray) ? ", " + certArray.join(", ") : "";
+      return (certArray?.length > 2) ? certArray.join(", ") : (certArray) ? ", " + certArray.join(", ") : "";
     },
     validateCerts(input) {
       const certArray = input.match(/([a-z])+/gi);
-      return certArray && certArray.length > 2
+      return (certArray?.length > 2)
     }
 
   }
