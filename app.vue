@@ -3,39 +3,39 @@
     <div class="logo-container"><img class="logo" src="https://www.k2united.com/images/k2unitedlogo.png"></div>
 
     <h1>
-      Branded Email Signature Generator
+      Email Signature Generator
     </h1>
     <form>
 
       <label for="brand-selector">Brand *
         <select id="brand-selector" v-model="brand">
-          <option disabled>--Select Brand--</option>
+          <option disabled>-- Select Brand --</option>
           <option>K2United</option>
           <option>K2Share</option>
           <option>CareerSafe</option>
         </select></label>
       <label for="name">Full Name *
-        <input id="name" type="text" v-model="name">
+        <input id="name" type="text" v-model="name" placeholder="Firstname Lastname">
       </label>
-      <label for="position">Position/Seat Title *
-        <input id="email" type="text" v-model="position">
+      <label for="position">Position/Professional Title *
+        <input id="position" type="text" v-model="position" placeholder="Director of Good Times">
       </label>
       <label for="certifications">Certifications (Comma seperated list)
-        <input id="certifications" type="text" v-model="certs">
+        <input id="certifications" type="text" v-model="certs" placeholder="CERT, CERT, CERT, CERT, CERT">
       </label>
       <label for="mobile-phone">Mobile Phone
-        <input id="mobile-phone" type="text" v-model="mobilePhone">
+        <input id="mobile-phone" type="text" v-model="mobilePhone" placeholder="(999) 999-9999">
       </label>
       <label for="office-phone">Office Phone
-        <input id="office-phone" type="text" v-model="officePhone">
+        <input id="office-phone" type="text" v-model="officePhone" placeholder="(999) 999-9999">
       </label>
       <label for="fax">Fax Number
-        <input id="fax" type="text" v-model="fax">
+        <input id="fax" type="text" v-model="fax" placeholder="(999) 999-9999">
       </label>
-      <div class="flex"> <button>
+      <div class="flex"> <button class="btn-reset">
           Reset
         </button>
-        <button @click="buttonPress" type="button">
+        <button @click="buttonPress" type="button" class="btn">
           Copy to Clipboard
         </button>
       </div>
@@ -43,7 +43,7 @@
     </form>
 
 
-    <div class="divider" v-if="brand"></div>
+    <div class="divider" v-if="brand !== '-- Select Brand --'"></div>
 
 
     <!-------------------------------- Start K2United Email Signature HTML------------------------------------->
@@ -307,17 +307,18 @@
 export default {
   data() {
     return {
-      brand: "",
-      name: "FirstName Lastname", // {{ name }}<br v-if="validateCerts(certs)">{{ formatCerts(certs) }}
-      position: "Position/Seat Title",
-      certs: "CERT, CERT, CERT, CERT, CERT", //optional
-      mobilePhone: "(999) 999-9999", //optional :href="'tel:' + formatPhone(mobilePhone)"
-      officePhone: "(999) 999-9999", //optional :href="'tel:' + formatPhone(officePhone)"
-      fax: "(999) 999-9999", //optional
+      brand: "-- Select Brand --",
+      name: "", // {{ name }}<br v-if="validateCerts(certs)">{{ formatCerts(certs) }}
+      position: "",
+      certs: "", //optional
+      mobilePhone: "", //optional :href="'tel:' + formatPhone(mobilePhone)"
+      officePhone: "", //optional :href="'tel:' + formatPhone(officePhone)"
+      fax: "", //optional
     }
   },
   methods: {
     buttonPress() {
+      this.validateReqs();
       const signature = document.querySelector("#signature");
       //document.getSelection().selectAllChildren(signature); //if using execCommand
       //document.execCommand("copy"); //execCommand is deprecated, ff users must manually enable ClipboardItem tho
@@ -332,7 +333,7 @@ export default {
       navigator.clipboard.write(selection).then(() => {
         console.log('Content copied to clipboard');
         document.querySelector("#btn-message").innerHTML = "Signature Copied!";
-        setTimeout(() => { document.querySelector("#btn-message").innerHTML = "" }, 1000)
+        setTimeout(() => { document.querySelector("#btn-message").innerHTML = "" }, 2000)
       }, () => {
         console.error('Failed to copy');
         document.querySelector("#btn-message").innerHTML = "Signature Copy Failed";
@@ -353,7 +354,11 @@ export default {
     validateCerts(input) {
       const certArray = input.match(/([a-z\.])+/gi);
       return (certArray?.length > 2)
-    }
+    },
+    validateReqs() {
+      this.name ? null : console.log("Must use name");
+      this.position ? null : console.log("Must use position")
+    },
 
   }
 }
@@ -385,7 +390,8 @@ h1 {
   font-family: trade-gothic-next, sans-serif;
   font-weight: 500;
   padding: 0 5%;
-  color: rgb(210, 0, 50);
+  color: #484848;
+  font-size: 1.5rem;
 }
 
 form {
@@ -423,22 +429,37 @@ select {
 
 button {
   margin-top: 1rem;
-  color: white;
-  background-color: rgb(210, 0, 50);
   border-radius: 4px;
-  border: 3px solid rgb(210, 0, 50);
+  border: 3px solid;
   font-family: var(--main-font);
   font-weight: 700;
-  line-height: 1rem;
+  line-height: 1em;
   min-width: 9rem;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem 0.6rem;
   text-align: center;
   cursor: pointer;
 }
 
-button:hover {
-  background-color: rgb(170, 0, 36);
-  border-color: rgb(170, 0, 36);
+.btn {
+  color: white;
+  background-color: #00245A;
+  border-color: #00245A;
+}
+
+.btn-reset {
+  color: white;
+  background-color: #767676;
+  border-color: #767676;
+}
+
+.btn:hover {
+  background-color: #00183D;
+  border-color: #00183D;
+}
+
+.btn-reset:hover {
+  background-color: #484848;
+  border-color: #484848;
 }
 
 .divider {
