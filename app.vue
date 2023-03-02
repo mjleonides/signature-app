@@ -7,29 +7,32 @@
     </h1>
     <form>
 
-      <label for="brand-selector">Brand *
+      <label for="brand-selector">Brand * <span class="error" v-if="errorBrand">Please select brand.</span>
         <select id="brand-selector" v-model="brand">
           <option disabled>-- Select Brand --</option>
           <option>K2United</option>
           <option>K2Share</option>
           <option>CareerSafe</option>
         </select></label>
-      <label for="name">Full Name *
+      <label for="name">Full Name * <span class="error" v-if="errorName">Field is required.</span>
         <input id="name" type="text" v-model="name" placeholder="Firstname Lastname">
       </label>
-      <label for="position">Position/Professional Title *
+      <label for="position">Position/Professional Title * <span class="error" v-if="errorPosition">Field is
+          required.</span>
         <input id="position" type="text" v-model="position" placeholder="Director of Good Times">
       </label>
       <label for="certifications">Certifications (Comma seperated list)
         <input id="certifications" type="text" v-model="certs" placeholder="CERT, CERT, CERT, CERT, CERT">
       </label>
-      <label for="mobile-phone">Mobile Phone
+      <label for="mobile-phone">Mobile Phone <span class="error" v-if="errorMobile">Mobile Phone must have 10
+          digits.</span>
         <input id="mobile-phone" type="text" v-model="mobilePhone" placeholder="(999) 999-9999">
       </label>
-      <label for="office-phone">Office Phone
+      <label for="office-phone">Office Phone <span class="error" v-if="errorOffice">Office Phone must have 10
+          digits.</span>
         <input id="office-phone" type="text" v-model="officePhone" placeholder="(999) 999-9999">
       </label>
-      <label for="fax">Fax Number
+      <label for="fax">Fax Number <span class="error" v-if="errorFax">Fax Number must have 10 digits.</span>
         <input id="fax" type="text" v-model="fax" placeholder="(999) 999-9999">
       </label>
       <div class="flex"> <button class="btn-reset">
@@ -55,21 +58,21 @@
         <tbody>
           <tr>
             <td
-              style="color:#00245A;font-size:11pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:1px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><span style="font-weight:bold;color:#00245A;font-size:11pt;">{{ name }}<br
+              style="color:#00245A;font-size:10pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:1px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
+              <p style="margin:0px;"><span style="font-weight:bold;color:#00245A;font-size:10pt;">{{ name }}<br
                     v-if="validateCerts(certs)">{{ formatCerts(certs) }}</span></p>
             </td>
           </tr>
           <tr>
             <td
-              style="color:#545454;font-size:11pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:10px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><span style="color:#545454;font-size:11pt;"><em>{{ position }}</em></span></p>
+              style="color:#545454;font-size:10pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:10px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
+              <p style="margin:0px;"><span style="color:#545454;font-size:10pt;"><em>{{ position }}</em></span></p>
             </td>
           </tr>
 
           <tr>
             <td
-              style="color:#545454;font-size:9pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:5px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
+              style="color:#545454;font-size:8pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:5px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><span style="font-weight:bold;letter-spacing:1px;"><a href="https://k2united.com/"
                     style="color:#00245A;text-decoration:none;text-transform:uppercase;"
                     target="_blank">k2united.com</a></span></p>
@@ -78,7 +81,7 @@
 
           <tr>
             <td
-              style="color:#545454;font-size:9pt;mso-line-height-rule:exactly;line-height:1.2em;border-top:solid 1px #D3D3D3;padding-top:5px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
+              style="color:#545454;font-size:8pt;mso-line-height-rule:exactly;line-height:1.2em;border-top:solid 1px #D3D3D3;padding-top:5px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><span v-if="validatePhone(mobilePhone)" style="color:#545454;"><span
                     style="font-weight:bold;color:#545454;">Mobile:</span> <a :href="'tel:' + formatPhone(mobilePhone)"
                     style="color:#545454;text-decoration:none;" target="_blank">{{ formatPhone(mobilePhone) }}</a> <span
@@ -97,7 +100,7 @@
 
           <tr>
             <td
-              style="color:#00245A;font-size:9pt;height:45px;padding-top:5px;padding-bottom:5px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
+              style="color:#00245A;font-size:8pt;height:45px;padding-top:5px;padding-bottom:5px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><a href="https://k2united.com/" style="border:0px;display:block;height:45px;"
                   target="_blank">
                   <img src="https://k2united.com/images/logo-k2united-email.png" width="195" height="45"
@@ -107,13 +110,13 @@
 
           <tr>
             <td
-              style="color:#545454;font-size:9pt;mso-line-height-rule:exactly;line-height:1.2em;padding-top:2px;border-top:solid 1px #D3D3D3;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
+              style="color:#545454;font-size:8pt;mso-line-height-rule:exactly;line-height:1.2em;padding-top:2px;border-top:solid 1px #D3D3D3;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><span style="color:#545454;">Certified Great Place to Work<sup>&reg;</sup> <span
                     style="color:#D3D3D3;">|</span> Certified Veteran-Owned Small Business (VOSB)</span></p>
             </td>
           </tr>
           <tr>
-            <td style="color:#545454;font-size:9pt;height:21px;padding-top:5px;font-family:Arial, Helvetica, sans-serif;">
+            <td style="color:#545454;font-size:8pt;height:21px;padding-top:5px;font-family:Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><a href="https://www.facebook.com/K2ULLC/" target="_blank"
                   style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
                     src="https://k2united.com/images/social-facebook.png" width="21" height="21"
@@ -138,20 +141,20 @@
         <tbody>
           <tr>
             <td
-              style="color:#231F20;font-size:11pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:1px;font-family:'Lato', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><span style="font-weight:bold;color:#231F20;font-size:11pt;">{{ name }}<br
+              style="color:#231F20;font-size:10pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:1px;font-family:'Lato', Arial, Helvetica, sans-serif;">
+              <p style="margin:0px;"><span style="font-weight:bold;color:#231F20;font-size:10pt;">{{ name }}<br
                     v-if="validateCerts(certs)">{{ formatCerts(certs) }}</span></p>
             </td>
           </tr>
           <tr>
             <td
-              style="color:#545454;font-size:11pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:10px;font-family:'Lato', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><span style="color:#545454;font-size:11pt;"><em>{{ position }}</em></span></p>
+              style="color:#545454;font-size:10pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:10px;font-family:'Lato', Arial, Helvetica, sans-serif;">
+              <p style="margin:0px;"><span style="color:#545454;font-size:10pt;"><em>{{ position }}</em></span></p>
             </td>
           </tr>
           <tr>
             <td
-              style="color:#545454;font-size:9pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:5px;font-family:'Lato', Arial, Helvetica, sans-serif;">
+              style="color:#545454;font-size:8pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:5px;font-family:'Lato', Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><span style="font-weight:bold;letter-spacing:1px;text-transform:uppercase;"><a
                     href="https://www.k2share.com/" style="color:#231F20;text-decoration:none;"
                     target="_blank">k2share.com</a></span> <span style="color:#D3D3D3;">|</span> A <a
@@ -160,7 +163,7 @@
           </tr>
           <tr>
             <td
-              style="color:#545454;font-size:9pt;mso-line-height-rule:exactly;line-height:1.2em;border-top:solid 1px #D3D3D3;padding-top:5px;font-family:'Lato', Arial, Helvetica, sans-serif;">
+              style="color:#545454;font-size:8pt;mso-line-height-rule:exactly;line-height:1.2em;border-top:solid 1px #D3D3D3;padding-top:5px;font-family:'Lato', Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><span v-if="validatePhone(mobilePhone)" style="color:#545454;"><span
                     style="font-weight:bold;color:#545454;">Mobile:</span> <a :href="'tel:' + formatPhone(mobilePhone)"
                     style="color:#545454;text-decoration:none;" target="_blank">{{ formatPhone(mobilePhone) }}</a> <span
@@ -179,7 +182,7 @@
 
           <tr>
             <td
-              style="color:#231F20;font-size:9pt;height:36px;padding-top:10px;padding-bottom:10px;font-family:'Lato', Arial, Helvetica, sans-serif;">
+              style="color:#231F20;font-size:8pt;height:36px;padding-top:10px;padding-bottom:10px;font-family:'Lato', Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><a href="https://www.k2share.com/" style="border:0px;display:block;height:36px;"
                   target="_blank">
                   <img src="https://www.k2share.com/content/graphics/logos/logo-k2share-email.png" width="178" height="36"
@@ -189,14 +192,14 @@
 
           <tr>
             <td
-              style="color:#545454;font-size:9pt;mso-line-height-rule:exactly;line-height:1.2em;padding-top:2px;border-top:solid 1px #D3D3D3;font-family:'Lato', Arial, Helvetica, sans-serif;">
+              style="color:#545454;font-size:8pt;mso-line-height-rule:exactly;line-height:1.2em;padding-top:2px;border-top:solid 1px #D3D3D3;font-family:'Lato', Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><span style="color:#545454;">Certified SBA HUBZone <span
                     style="color:#D3D3D3;">|</span> Certified Great Place to Work<sup>&reg;</sup> <span
                     style="color:#D3D3D3;">|</span> Certified Veteran-Owned Small Business (VOSB)</span></p>
             </td>
           </tr>
           <tr>
-            <td style="color:#545454;font-size:9pt;height:21px;padding-top:5px;font-family:Arial, Helvetica, sans-serif;">
+            <td style="color:#545454;font-size:8pt;height:21px;padding-top:5px;font-family:Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><a href="https://www.facebook.com/K2SLLC/" target="_blank"
                   style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
                     src="https://k2united.com/images/social-facebook.png" width="21" height="21"
@@ -221,20 +224,20 @@
         <tbody>
           <tr>
             <td
-              style="color:#044C7A;font-size:11pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:1px;font-family:'Open Sans', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><span style="font-weight:bold;color:#044C7A;font-size:11pt;">{{ name }}<br
+              style="color:#044C7A;font-size:10pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:1px;font-family:'Open Sans', Arial, Helvetica, sans-serif;">
+              <p style="margin:0px;"><span style="font-weight:bold;color:#044C7A;font-size:10pt;">{{ name }}<br
                     v-if="validateCerts(certs)">{{ formatCerts(certs) }}</span></p>
             </td>
           </tr>
           <tr>
             <td
-              style="color:#545454;font-size:11pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:10px;font-family:'Open Sans', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><span style="color:#545454;font-size:11pt;"><em>{{ position }}</em></span></p>
+              style="color:#545454;font-size:10pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:10px;font-family:'Open Sans', Arial, Helvetica, sans-serif;">
+              <p style="margin:0px;"><span style="color:#545454;font-size:10pt;"><em>{{ position }}</em></span></p>
             </td>
           </tr>
           <tr>
             <td
-              style="color:#545454;font-size:9pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:5px;font-family:'Open Sans', Arial, Helvetica, sans-serif;">
+              style="color:#545454;font-size:8pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:5px;font-family:'Open Sans', Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><span style="font-weight:bold;"><a href="https://careersafeonline.com/"
                     style="color:#044C7A;text-decoration:none;text-transform:uppercase;"
                     target="_blank">careersafeonline.com</a></span> <span style="color:#D3D3D3;">|</span>A <a
@@ -243,7 +246,7 @@
           </tr>
           <tr>
             <td
-              style="color:#545454;font-size:9pt;mso-line-height-rule:exactly;line-height:1.2em;border-top:solid 1px #D3D3D3;padding-top:5px;font-family:'Open Sans', Arial, Helvetica, sans-serif;">
+              style="color:#545454;font-size:8pt;mso-line-height-rule:exactly;line-height:1.2em;border-top:solid 1px #D3D3D3;padding-top:5px;font-family:'Open Sans', Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><span v-if="validatePhone(mobilePhone)" style="color:#545454;"><span
                     style="font-weight:bold;color:#545454;">Mobile:</span> <a :href="'tel:' + formatPhone(mobilePhone)"
                     style="color:#545454;text-decoration:none;" target="_blank">{{ formatPhone(mobilePhone) }}</a> <span
@@ -262,7 +265,7 @@
 
           <tr>
             <td
-              style="color:#044C7A;font-size:9pt;height:36px;padding-top:10px;padding-bottom:10px;font-family:'Open Sans', Arial, Helvetica, sans-serif;">
+              style="color:#044C7A;font-size:8pt;height:36px;padding-top:10px;padding-bottom:10px;font-family:'Open Sans', Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><a href="https://careersafeonline.com/" style="border:0px;display:block;height:36px;"
                   target="_blank">
                   <img src="https://www.careersafeonline.com/images/logo-careersafe-email.png" width="200" height="36"
@@ -272,12 +275,12 @@
 
           <tr>
             <td
-              style="color:#545454;font-size:9pt;mso-line-height-rule:exactly;line-height:1.2em;padding-top:2px;border-top:solid 1px #D3D3D3;font-family:'Open Sans', Arial, Helvetica, sans-serif;">
+              style="color:#545454;font-size:8pt;mso-line-height-rule:exactly;line-height:1.2em;padding-top:2px;border-top:solid 1px #D3D3D3;font-family:'Open Sans', Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><span style="color:#545454;">Certified Great Place to Work<sup>&reg;</sup></span></p>
             </td>
           </tr>
           <tr>
-            <td style="color:#545454;font-size:9pt;height:21px;padding-top:5px;font-family:Arial, Helvetica, sans-serif;">
+            <td style="color:#545454;font-size:8pt;height:21px;padding-top:5px;font-family:Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><a href="https://www.facebook.com/CareerSafe" target="_blank"
                   style="display:inline-block;padding-right:9px;vertical-align:middle;"><img
                     src="https://k2united.com/images/social-facebook.png" width="21" height="21"
@@ -314,30 +317,45 @@ export default {
       mobilePhone: "", //optional :href="'tel:' + formatPhone(mobilePhone)"
       officePhone: "", //optional :href="'tel:' + formatPhone(officePhone)"
       fax: "", //optional
+      //errors
+      errorBrand: "",
+      errorName: "",
+      errorPosition: "",
+      errorMobile: "",
+      errorOffice: "",
+      errorFax: "",
     }
   },
   methods: {
     buttonPress() {
-      this.validateReqs();
-      const signature = document.querySelector("#signature");
-      //document.getSelection().selectAllChildren(signature); //if using execCommand
-      //document.execCommand("copy"); //execCommand is deprecated, ff users must manually enable ClipboardItem tho
+      if (this.validateReqs()) {
+        const signature = document.querySelector("#signature");
+        //document.getSelection().selectAllChildren(signature); //if using execCommand
+        //document.execCommand("copy"); //execCommand is deprecated, ff users must manually enable ClipboardItem tho
 
-      //Modern Clipboard API method
-      const selection = [new ClipboardItem({
-        "text/html": new Blob([signature.innerHTML], {
-          type: "text/html",
-        })
-      })];
+        //Modern Clipboard API method
+        const selection = [new ClipboardItem({
+          "text/html": new Blob([signature.innerHTML], {
+            type: "text/html",
+          })
+        })];
 
-      navigator.clipboard.write(selection).then(() => {
-        console.log('Content copied to clipboard');
-        document.querySelector("#btn-message").innerHTML = "Signature Copied!";
-        setTimeout(() => { document.querySelector("#btn-message").innerHTML = "" }, 2000)
-      }, () => {
-        console.error('Failed to copy');
+        navigator.clipboard.write(selection).then(() => {
+          console.log('Content copied to clipboard');
+          document.querySelector("#btn-message").innerHTML = "Signature Copied!";
+          setTimeout(() => { document.querySelector("#btn-message").innerHTML = "" }, 2000)
+        }, () => {
+          console.error('Failed to copy');
+          document.querySelector("#btn-message").innerHTML = "Signature Copy Failed";
+          setTimeout(() => { document.querySelector("#btn-message").innerHTML = "" }, 2000)
+        });
+      } else {
         document.querySelector("#btn-message").innerHTML = "Signature Copy Failed";
-      });
+        setTimeout(() => { document.querySelector("#btn-message").innerHTML = "" }, 2000)
+      }
+
+      ;
+
     },
     formatPhone(input) {
       const digits = input.match(/\d/g);
@@ -356,8 +374,37 @@ export default {
       return (certArray?.length > 2)
     },
     validateReqs() {
-      this.name ? null : console.log("Must use name");
-      this.position ? null : console.log("Must use position")
+      let passing = true;
+      if (this.brand === "-- Select Brand --") {
+        this.errorBrand = true;
+        passing = false;
+      }
+      if (!this.name) {
+        console.log("Must use name")
+        this.errorName = true;
+        passing = false;
+      }
+      if (!this.position) {
+        console.log("Position/Professional Title is required.")
+        this.errorPosition = true;
+        passing = false;
+      }
+      if (this.mobilePhone && !this.validatePhone(this.mobilePhone)) {
+        console.log("Mobile Phone must have 10 digits")
+        this.errorMobile = true;
+        passing = false;
+      }
+      if (this.officePhone && !this.validatePhone(this.officePhone)) {
+        console.log("Office Phone must have 10 digits")
+        this.errorOffice = true;
+        passing = false;
+      }
+      if (this.fax && !this.validatePhone(this.fax)) {
+        console.log("Fax Number must have 10 digits")
+        this.errorFax = true;
+        passing = false;
+      }
+      return passing;
     },
 
   }
@@ -403,11 +450,17 @@ form {
 
 label {
   margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
 }
 
 input,
 select {
-  min-width: 100%;
+  min-width: 30vmax;
+  background: #FFFFFF;
+  border: 1px solid #3E3E3E;
+  border-radius: 4px;
+  padding: 0.25rem 0.75rem;
 }
 
 .optional-fields-cs input {
@@ -468,9 +521,13 @@ button {
   margin: 0 10%;
 }
 
+.error {
+  color: #C50000;
+  position: absolute;
+  align-self: flex-end;
+}
+
 #signature {
   margin: 2rem 10% 4rem;
 }
-
-/* testing remote repos */
 </style>
