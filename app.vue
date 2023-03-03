@@ -8,32 +8,33 @@
     <form>
 
       <label for="brand-selector">Brand * <span class="error" v-if="errorBrand">Please select brand.</span>
-        <select id="brand-selector" v-model="brand">
+        <select id="brand-selector" v-model="brand" :data-error="errorBrand">
           <option disabled>-- Select Brand --</option>
           <option>K2United</option>
           <option>K2Share</option>
           <option>CareerSafe</option>
         </select></label>
       <label for="name">Full Name * <span class="error" v-if="errorName">Field is required.</span>
-        <input id="name" type="text" v-model="name" placeholder="Firstname Lastname">
+        <input id="name" type="text" v-model="name" placeholder="Firstname Lastname" :data-error="errorName">
       </label>
       <label for="position">Position/Professional Title * <span class="error" v-if="errorPosition">Field is
           required.</span>
-        <input id="position" type="text" v-model="position" placeholder="Director of Good Times">
+        <input id="position" type="text" v-model="position" placeholder="Director of Good Times"
+          :data-error="errorPosition">
       </label>
       <label for="certifications">Certifications (Comma seperated list)
         <input id="certifications" type="text" v-model="certs" placeholder="CERT, CERT, CERT, CERT, CERT">
       </label>
       <label for="mobile-phone">Mobile Phone <span class="error" v-if="errorMobile">Mobile Phone must have 10
           digits.</span>
-        <input id="mobile-phone" type="text" v-model="mobilePhone" placeholder="(999) 999-9999">
+        <input id="mobile-phone" type="text" v-model="mobilePhone" placeholder="(999) 999-9999" :data-error="errorMobile">
       </label>
       <label for="office-phone">Office Phone <span class="error" v-if="errorOffice">Office Phone must have 10
           digits.</span>
-        <input id="office-phone" type="text" v-model="officePhone" placeholder="(999) 999-9999">
+        <input id="office-phone" type="text" v-model="officePhone" placeholder="(999) 999-9999" :data-error="errorOffice">
       </label>
       <label for="fax">Fax Number <span class="error" v-if="errorFax">Fax Number must have 10 digits.</span>
-        <input id="fax" type="text" v-model="fax" placeholder="(999) 999-9999">
+        <input id="fax" type="text" v-model="fax" placeholder="(999) 999-9999" :data-error="errorFax">
       </label>
       <div class="flex"> <button class="btn-reset">
           Reset
@@ -318,44 +319,39 @@ export default {
       officePhone: "", //optional :href="'tel:' + formatPhone(officePhone)"
       fax: "", //optional
       //errors
-      errorBrand: "",
-      errorName: "",
-      errorPosition: "",
-      errorMobile: "",
-      errorOffice: "",
-      errorFax: "",
+      errorBrand: false,
+      errorName: false,
+      errorPosition: false,
+      errorMobile: false,
+      errorOffice: false,
+      errorFax: false,
     }
   },
   methods: {
     buttonPress() {
-      if (this.validateReqs()) {
-        const signature = document.querySelector("#signature");
-        //document.getSelection().selectAllChildren(signature); //if using execCommand
-        //document.execCommand("copy"); //execCommand is deprecated, ff users must manually enable ClipboardItem tho
+      (this.validateReqs()) ? this.copySign() : console.log("Copy failed, fix required fields pretty please.");
+    },
+    copySign() {
+      const signature = document.querySelector("#signature");
+      //document.getSelection().selectAllChildren(signature); //if using execCommand
+      //document.execCommand("copy"); //execCommand is deprecated, ff users must manually enable ClipboardItem tho
 
-        //Modern Clipboard API method
-        const selection = [new ClipboardItem({
-          "text/html": new Blob([signature.innerHTML], {
-            type: "text/html",
-          })
-        })];
+      //Modern Clipboard API method
+      const selection = [new ClipboardItem({
+        "text/html": new Blob([signature.innerHTML], {
+          type: "text/html",
+        })
+      })];
 
-        navigator.clipboard.write(selection).then(() => {
-          console.log('Content copied to clipboard');
-          document.querySelector("#btn-message").innerHTML = "Signature Copied!";
-          setTimeout(() => { document.querySelector("#btn-message").innerHTML = "" }, 2000)
-        }, () => {
-          console.error('Failed to copy');
-          document.querySelector("#btn-message").innerHTML = "Signature Copy Failed";
-          setTimeout(() => { document.querySelector("#btn-message").innerHTML = "" }, 2000)
-        });
-      } else {
+      navigator.clipboard.write(selection).then(() => {
+        console.log('Content copied to clipboard');
+        document.querySelector("#btn-message").innerHTML = "Signature Copied!";
+        setTimeout(() => { document.querySelector("#btn-message").innerHTML = "" }, 2000)
+      }, () => {
+        console.error('Failed to copy');
         document.querySelector("#btn-message").innerHTML = "Signature Copy Failed";
         setTimeout(() => { document.querySelector("#btn-message").innerHTML = "" }, 2000)
-      }
-
-      ;
-
+      });
     },
     formatPhone(input) {
       const digits = input.match(/\d/g);
@@ -375,38 +371,56 @@ export default {
     },
     validateReqs() {
       let passing = true;
-      if (this.brand === "-- Select Brand --") {
+
+      if (this.brand !== "-- Select Brand --") { //checks brand selection
+        this.errorBrand = false;
+      } else {
         this.errorBrand = true;
         passing = false;
       }
-      if (!this.name) {
-        console.log("Must use name")
+
+      //checks name
+      if (this.name) {
+        this.errorName = false;
+      } else {
         this.errorName = true;
         passing = false;
       }
-      if (!this.position) {
-        console.log("Position/Professional Title is required.")
+
+      //checks position
+      if (this.position) {
+        this.errorPosition = false;
+      } else {
         this.errorPosition = true;
         passing = false;
       }
-      if (this.mobilePhone && !this.validatePhone(this.mobilePhone)) {
-        console.log("Mobile Phone must have 10 digits")
+
+      //checks mobile
+      if (!this.mobilePhone || this.validatePhone(this.mobilePhone)) {
+        this.errorMobile = false;
+      } else {
         this.errorMobile = true;
         passing = false;
       }
-      if (this.officePhone && !this.validatePhone(this.officePhone)) {
-        console.log("Office Phone must have 10 digits")
+
+      //checks office
+      if (!this.officePhone || this.validatePhone(this.officePhone)) {
+        this.errorOffice = false;
+      } else {
         this.errorOffice = true;
         passing = false;
       }
-      if (this.fax && !this.validatePhone(this.fax)) {
-        console.log("Fax Number must have 10 digits")
+
+      //checks fax
+      if (!this.fax || this.validatePhone(this.fax)) {
+        this.errorFax = false;
+      } else {
         this.errorFax = true;
         passing = false;
       }
+
       return passing;
     },
-
   }
 }
 </script>
@@ -463,6 +477,11 @@ select {
   padding: 0.25rem 0.75rem;
 }
 
+select[data-error=true],
+input[data-error=true] {
+  outline: solid 2px #C50000;
+}
+
 .optional-fields-cs input {
   min-width: 1.5rem;
 }
@@ -484,7 +503,7 @@ button {
   margin-top: 1rem;
   border-radius: 4px;
   border: 3px solid;
-  font-family: var(--main-font);
+  font-family: trade-gothic-next, sans-serif;
   font-weight: 700;
   line-height: 1em;
   min-width: 9rem;
