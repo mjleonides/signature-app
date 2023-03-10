@@ -434,29 +434,38 @@ export default {
 </script>
 
 <style lang="scss">
-$text-color: #fff;
-$form-background-color: #fff;
+$text1-color-normal: #767676;
+$text2-color-large: #939393;
 $primary-color: #00245A;
 $secondary-color: #D50032;
 $accent1-color: #FFBC45;
 $accent2-color: #66C2ED;
 $neutral1-color: #F0F0F0;
-$neutral-medium: #DEDEDE;
+$neutral2-color: #D3D3D3;
+$placeholder-color: #DEDEDE;
+$dark-text-color: #3e3e3e;
+$white-color: #ffffff;
+$black-color: #000000;
+
+$danger-color: #C50000;
+
+$form-background-color: $white-color;
+$input-text-color: $dark-text-color;
 
 * {
   box-sizing: border-box;
 }
 
 body {
-  background-color: rgb(0, 36, 90);
+  background-color: $primary-color;
 
 }
 
 .page-container {
-  background-color: white;
+  background-color: $form-background-color;
   max-width: 800px;
   margin: 2rem auto;
-  border: solid 1px white;
+  border: solid;
   border-radius: 50px 50px 50px 0;
 }
 
@@ -472,7 +481,7 @@ h1 {
   font-family: trade-gothic-next, sans-serif;
   font-weight: 500;
   padding: 0 5%;
-  color: #484848;
+  color: $text1-color-normal;
   font-size: 1.5rem;
 }
 
@@ -481,55 +490,50 @@ form {
   justify-content: center;
   font-family: trade-gothic-next, sans-serif;
   padding: 0 5%;
+
+  label {
+    margin-bottom: 1rem;
+    font-weight: 700;
+    line-height: 0.9rem;
+
+    p {
+      margin: 0 0 0.25rem;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  input,
+  select {
+    min-width: 25rem;
+    background: $form-background-color;
+    border: 1px solid $placeholder-color;
+    border-radius: 5px;
+    padding: 0.375rem 0.75rem;
+    color: $input-text-color;
+
+    &[data-error=true] {
+      border: solid 1px $danger-color;
+    }
+
+    &:focus-visible {
+      outline: solid 2px $accent2-color;
+    }
+  }
+
+  ::placeholder {
+    color: $placeholder-color;
+  }
+
+  .optional-fields-cs input {
+    min-width: 1.5rem;
+  }
 }
 
-label {
-  margin-bottom: 1rem;
-  font-weight: 700;
-  line-height: 0.9rem;
-}
 
-label p {
-  margin: 0 0 0.25rem;
-  display: flex;
-  flex-direction: column;
-}
-
-input,
-select {
-  min-width: 25rem;
-  background: #FFFFFF;
-  border: 1px solid #DEDEDE;
-  border-radius: 5px;
-  padding: 0.375rem 0.75rem;
-  color: #3E3E3E;
-}
-
-select[data-error=true],
-input[data-error=true] {
-  border: solid 1px #C50000;
-}
-
-
-select:focus-visible,
-input:focus-visible {
-  outline: solid 2px #66C2ED;
-}
-
-option {
-  color: green;
-}
-
-::placeholder {
-  color: #DEDEDE;
-}
-
-.optional-fields-cs input {
-  min-width: 1.5rem;
-}
 
 #btn-message {
-  color: grey;
+  color: $text1-color-normal;
   text-align: center;
   font-style: italic;
   font-family: trade-gothic-next, sans-serif;
@@ -553,28 +557,29 @@ button {
   padding: 0.5rem 1rem 0.6rem;
   text-align: center;
   cursor: pointer;
+
+  &.btn {
+    color: $white-color;
+    background-color: $primary-color;
+    border-color: $primary-color;
+
+    &-reset {
+      color: $white-color;
+      background-color: $text1-color-normal;
+      border-color: $text1-color-normal;
+    }
+  }
 }
 
-.btn {
-  color: white;
-  background-color: #00245A;
-  border-color: #00245A;
-}
-
-.btn-reset {
-  color: white;
-  background-color: #767676;
-  border-color: #767676;
-}
 
 .divider {
   overflow: hidden;
-  border-top: solid 0.5px grey;
+  border-top: solid 0.5px $text1-color-normal;
   margin: 0 10%;
 }
 
 .error {
-  color: #C50000;
+  color: $danger-color;
   position: absolute;
   align-self: flex-end;
 }
