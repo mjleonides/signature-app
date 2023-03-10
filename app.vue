@@ -6,6 +6,19 @@
       Email Signature Generator
     </h1>
     <form>
+      <div id="error-container" v-if="hasErrors">
+        <i class="fa-solid fa-square-exclamation"></i>
+        <div class="errors">
+          <p class="error" v-if="errorBrand"><strong>Whoops! </strong>Brand is required.</p>
+          <p class="error" v-if="errorName"><strong>Whoops! </strong>Name is required.</p>
+          <p class="error" v-if="errorPosition"><strong>Whoops! </strong>Position is required.</p>
+          <p class="error" v-if="errorMobile"><strong>Whoops! </strong>Mobile Phone should be a valid 10-digit phone
+            number.</p>
+          <p class="error" v-if="errorOffice"><strong>Whoops! </strong>Office Phone should be a valid 10-digit phone
+            number.</p>
+          <p class="error" v-if="errorFax"><strong>Whoops! </strong>Fax should be a valid 10-digit fax number.</p>
+        </div>
+      </div>
 
       <label for="brand-selector">
         <p>Brand * <span class="error" v-if="errorBrand">Please select brand.</span></p>
@@ -17,12 +30,11 @@
         </select>
       </label>
       <label for="name">
-        <p>Full Name * <span class="error" v-if="errorName">Field is required.</span></p>
+        <p>Full Name * <span class="error" v-if="errorName">Required Field.</span></p>
         <input id="name" type="text" v-model="name" placeholder="Firstname Lastname" :data-error="errorName">
       </label>
       <label for="position">
-        <p>Position/Professional Title * <span class="error" v-if="errorPosition">Field is
-            required.</span></p>
+        <p>Position/Professional Title * <span class="error" v-if="errorPosition">Required Field.</span></p>
         <input id="position" type="text" v-model="position" placeholder="Director of Good Times"
           :data-error="errorPosition">
       </label>
@@ -31,17 +43,17 @@
         <input id="certifications" type="text" v-model="certs" placeholder="CERT, CERT, CERT, CERT, CERT">
       </label>
       <label for="mobile-phone">
-        <p>Mobile Phone <span class="error" v-if="errorMobile">Mobile Phone must have 10
+        <p>Mobile Phone <span class="error" v-if="errorMobile">Must have 10
             digits.</span></p>
         <input id="mobile-phone" type="text" v-model="mobilePhone" placeholder="(999) 999-9999" :data-error="errorMobile">
       </label>
       <label for="office-phone">
-        <p>Office Phone <span class="error" v-if="errorOffice">Office Phone must have 10
+        <p>Office Phone <span class="error" v-if="errorOffice">Must have 10
             digits.</span></p>
         <input id="office-phone" type="text" v-model="officePhone" placeholder="(999) 999-9999" :data-error="errorOffice">
       </label>
       <label for="fax">
-        <p>Fax Number <span class="error" v-if="errorFax">Fax Number must have 10 digits.</span></p>
+        <p>Fax Number <span class="error" v-if="errorFax">Must have 10 digits.</span></p>
         <input id="fax" type="text" v-model="fax" placeholder="(999) 999-9999" :data-error="errorFax">
       </label>
       <div class="flex"> <button class="btn-reset">
@@ -327,6 +339,7 @@ export default {
       officePhone: "(979) 260-0030", //optional :href="'tel:' + formatPhone(officePhone)"
       fax: "", //optional
       //errors
+      hasErrors: false,
       errorBrand: false,
       errorName: false,
       errorPosition: false,
@@ -337,7 +350,7 @@ export default {
   },
   methods: {
     buttonPress() {
-      (this.validateReqs()) ? this.copySign() : console.log("Copy failed, fix required fields pretty please.");
+      (this.validateReqs() === false) ? this.copySign() : console.log("Copy failed, fix required fields pretty please.");
     },
     copySign() {
       const signature = document.querySelector("#signature");
@@ -378,13 +391,13 @@ export default {
       return (certArray?.length > 2)
     },
     validateReqs() {
-      let passing = true;
+      this.hasErrors = false;
 
       if (this.brand !== "-- Select Brand --") { //checks brand selection
         this.errorBrand = false;
       } else {
         this.errorBrand = true;
-        passing = false;
+        this.hasErrors = true;
       }
 
       //checks name
@@ -392,7 +405,7 @@ export default {
         this.errorName = false;
       } else {
         this.errorName = true;
-        passing = false;
+        this.hasErrors = true;
       }
 
       //checks position
@@ -400,7 +413,7 @@ export default {
         this.errorPosition = false;
       } else {
         this.errorPosition = true;
-        passing = false;
+        this.hasErrors = true;
       }
 
       //checks mobile
@@ -408,7 +421,7 @@ export default {
         this.errorMobile = false;
       } else {
         this.errorMobile = true;
-        passing = false;
+        this.hasErrors = true;
       }
 
       //checks office
@@ -416,7 +429,7 @@ export default {
         this.errorOffice = false;
       } else {
         this.errorOffice = true;
-        passing = false;
+        this.hasErrors = true;
       }
 
       //checks fax
@@ -424,11 +437,11 @@ export default {
         this.errorFax = false;
       } else {
         this.errorFax = true;
-        passing = false;
+        this.hasErrors = true;
       }
 
-      return passing;
-    },
+      return this.hasErrors
+    }
   }
 }
 </script>
@@ -493,8 +506,8 @@ form {
 
   label {
     margin-bottom: 1rem;
-    font-weight: 700;
-    line-height: 0.9rem;
+    font-weight: 600;
+    line-height: 1.25rem;
 
     p {
       margin: 0 0 0.25rem;
@@ -507,7 +520,7 @@ form {
   select {
     min-width: 25rem;
     background: $form-background-color;
-    border: 1px solid $placeholder-color;
+    border: 1px solid $dark-text-color;
     border-radius: 5px;
     padding: 0.375rem 0.75rem;
     color: $input-text-color;
@@ -578,11 +591,41 @@ button {
   margin: 0 10%;
 }
 
-.error {
-  color: $danger-color;
+
+
+#error-container {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1.4rem;
+
+  i {
+    font-size: 2rem;
+    color: $danger-color;
+    line-height: 2rem;
+    margin-right: 0.75rem;
+  }
+
+  .errors {
+    border: solid 1px $danger-color;
+    border-radius: 5px;
+    width: 100%;
+    padding: 0.25rem 0.75rem 0.25rem;
+  }
+}
+
+span.error {
+  color: $dark-text-color;
   position: absolute;
   align-self: flex-end;
+  display: none;
 }
+
+p.error {
+  font-size: 12px;
+  line-height: 18px;
+  margin: 0 0 0.25rem;
+}
+
 
 #signature {
   margin: 2rem 10% 4rem;

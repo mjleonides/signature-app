@@ -12,6 +12,10 @@ export default defineNuxtConfig({
 					src: "https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js",
 				},
 				{ src: "/placeholder.js" },
+				{
+					src: "https://kit.fontawesome.com/bc55df093a.js",
+					crossorigin: "anonymous",
+				},
 			],
 		},
 	},
