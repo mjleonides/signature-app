@@ -7,33 +7,41 @@
     </h1>
     <form>
 
-      <label for="brand-selector">Brand * <span class="error" v-if="errorBrand">Please select brand.</span>
+      <label for="brand-selector">
+        <p>Brand * <span class="error" v-if="errorBrand">Please select brand.</span></p>
         <select id="brand-selector" v-model="brand" :data-error="errorBrand">
-          <option disabled>-- Select Brand --</option>
+          <option>-- Select Brand --</option>
           <option>K2United</option>
           <option>K2Share</option>
           <option>CareerSafe</option>
-        </select></label>
-      <label for="name">Full Name * <span class="error" v-if="errorName">Field is required.</span>
+        </select>
+      </label>
+      <label for="name">
+        <p>Full Name * <span class="error" v-if="errorName">Field is required.</span></p>
         <input id="name" type="text" v-model="name" placeholder="Firstname Lastname" :data-error="errorName">
       </label>
-      <label for="position">Position/Professional Title * <span class="error" v-if="errorPosition">Field is
-          required.</span>
+      <label for="position">
+        <p>Position/Professional Title * <span class="error" v-if="errorPosition">Field is
+            required.</span></p>
         <input id="position" type="text" v-model="position" placeholder="Director of Good Times"
           :data-error="errorPosition">
       </label>
-      <label for="certifications">Certifications (Comma seperated list)
+      <label for="certifications">
+        <p>Certifications (Comma seperated list)</p>
         <input id="certifications" type="text" v-model="certs" placeholder="CERT, CERT, CERT, CERT, CERT">
       </label>
-      <label for="mobile-phone">Mobile Phone <span class="error" v-if="errorMobile">Mobile Phone must have 10
-          digits.</span>
+      <label for="mobile-phone">
+        <p>Mobile Phone <span class="error" v-if="errorMobile">Mobile Phone must have 10
+            digits.</span></p>
         <input id="mobile-phone" type="text" v-model="mobilePhone" placeholder="(999) 999-9999" :data-error="errorMobile">
       </label>
-      <label for="office-phone">Office Phone <span class="error" v-if="errorOffice">Office Phone must have 10
-          digits.</span>
+      <label for="office-phone">
+        <p>Office Phone <span class="error" v-if="errorOffice">Office Phone must have 10
+            digits.</span></p>
         <input id="office-phone" type="text" v-model="officePhone" placeholder="(999) 999-9999" :data-error="errorOffice">
       </label>
-      <label for="fax">Fax Number <span class="error" v-if="errorFax">Fax Number must have 10 digits.</span>
+      <label for="fax">
+        <p>Fax Number <span class="error" v-if="errorFax">Fax Number must have 10 digits.</span></p>
         <input id="fax" type="text" v-model="fax" placeholder="(999) 999-9999" :data-error="errorFax">
       </label>
       <div class="flex"> <button class="btn-reset">
@@ -316,7 +324,7 @@ export default {
       position: "",
       certs: "", //optional
       mobilePhone: "", //optional :href="'tel:' + formatPhone(mobilePhone)"
-      officePhone: "", //optional :href="'tel:' + formatPhone(officePhone)"
+      officePhone: "(979) 260-0030", //optional :href="'tel:' + formatPhone(officePhone)"
       fax: "", //optional
       //errors
       errorBrand: false,
@@ -425,7 +433,20 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+$text-color: #fff;
+$form-background-color: #fff;
+$primary-color: #00245A;
+$secondary-color: #D50032;
+$accent1-color: #FFBC45;
+$accent2-color: #66C2ED;
+$neutral1-color: #F0F0F0;
+$neutral-medium: #DEDEDE;
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: rgb(0, 36, 90);
 
@@ -464,22 +485,43 @@ form {
 
 label {
   margin-bottom: 1rem;
+  font-weight: 700;
+  line-height: 0.9rem;
+}
+
+label p {
+  margin: 0 0 0.25rem;
   display: flex;
   flex-direction: column;
 }
 
 input,
 select {
-  min-width: 30vmax;
+  min-width: 25rem;
   background: #FFFFFF;
-  border: 1px solid #3E3E3E;
-  border-radius: 4px;
-  padding: 0.25rem 0.75rem;
+  border: 1px solid #DEDEDE;
+  border-radius: 5px;
+  padding: 0.375rem 0.75rem;
+  color: #3E3E3E;
 }
 
 select[data-error=true],
 input[data-error=true] {
-  outline: solid 2px #C50000;
+  border: solid 1px #C50000;
+}
+
+
+select:focus-visible,
+input:focus-visible {
+  outline: solid 2px #66C2ED;
+}
+
+option {
+  color: green;
+}
+
+::placeholder {
+  color: #DEDEDE;
 }
 
 .optional-fields-cs input {
@@ -496,16 +538,17 @@ input[data-error=true] {
 
 .flex {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 button {
   margin-top: 1rem;
-  border-radius: 4px;
+  border-radius: 5px;
   border: 3px solid;
   font-family: trade-gothic-next, sans-serif;
+  font-size: 0.9rem;
   font-weight: 700;
-  line-height: 1em;
+  line-height: 1.125rem;
   min-width: 9rem;
   padding: 0.5rem 1rem 0.6rem;
   text-align: center;
@@ -522,16 +565,6 @@ button {
   color: white;
   background-color: #767676;
   border-color: #767676;
-}
-
-.btn:hover {
-  background-color: #00183D;
-  border-color: #00183D;
-}
-
-.btn-reset:hover {
-  background-color: #484848;
-  border-color: #484848;
 }
 
 .divider {
