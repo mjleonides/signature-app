@@ -38,9 +38,13 @@
         <input id="position" type="text" v-model="position" placeholder="Director of Good Times"
           :data-error="errorPosition">
       </label>
-      <label for="certifications">
-        <p>Certifications (Comma seperated list)</p>
+      <label for="certifications" class="half-width-left">
+        <p>Certifications</p>
         <input id="certifications" type="text" v-model="certs" placeholder="CERT, CERT, CERT, CERT, CERT">
+      </label>
+      <label for="pronouns" class="half-width-right">
+        <p>Pronouns</p>
+        <input id="pronouns" type="text" v-model="pronouns" placeholder="They/Them">
       </label>
       <label for="mobile-phone">
         <p>Mobile Phone <span class="error" v-if="errorMobile">Must have 10
@@ -62,6 +66,7 @@
         <button @click="buttonPress" type="button" class="btn">
           Copy to Clipboard
         </button>
+
       </div>
       <p id="btn-message"></p>
     </form>
@@ -87,7 +92,10 @@
           <tr>
             <td
               style="color:#545454;font-size:10pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:10px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><span style="color:#545454;font-size:10pt;"><em>{{ position }}</em></span></p>
+              <p style="margin:0px;"><span style="color:#545454;font-size:10pt;"><em>{{ position }}</em></span><span
+                  v-if="pronouns" style="color:#D3D3D3;"> | <span style="color:#545454;font-size:8pt;"><em>({{
+                    pronouns
+                  }})</em></span></span></p>
             </td>
           </tr>
 
@@ -178,7 +186,9 @@
               style="color:#545454;font-size:8pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:5px;font-family:'Lato', Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><span style="font-weight:bold;letter-spacing:1px;text-transform:uppercase;"><a
                     href="https://www.k2share.com/" style="color:#231F20;text-decoration:none;"
-                    target="_blank">k2share.com</a></span> <span style="color:#D3D3D3;">|</span> A <a
+                    target="_blank">k2share.com</a></span><span style="color:#D3D3D3;"> | </span><span
+                  style="color:#545454;">Security Beyond
+                  Compliance<sup style="font-size:5pt;"> TM</sup></span> <span style="color:#D3D3D3;">|</span> A <a
                   href="https://www.k2united.com" style="color:#545454;text-decoration: none;">K2United</a> Brand</p>
             </td>
           </tr>
@@ -334,6 +344,7 @@ export default {
       brand: "-- Select Brand --",
       name: "", // {{ name }}<br v-if="validateCerts(certs)">{{ formatCerts(certs) }}
       position: "",
+      pronouns: "",
       certs: "", //optional
       mobilePhone: "", //optional :href="'tel:' + formatPhone(mobilePhone)"
       officePhone: "(979) 260-0030", //optional :href="'tel:' + formatPhone(officePhone)"
@@ -478,7 +489,7 @@ body {
   background-color: $form-background-color;
   max-width: 800px;
   margin: 2rem auto;
-  border: solid;
+  border: solid $primary-color;
   border-radius: 50px 50px 50px 0;
 }
 
@@ -502,12 +513,14 @@ form {
   display: grid;
   justify-content: center;
   font-family: trade-gothic-next, sans-serif;
-  padding: 0 5%;
+  gap: 0 1rem;
+  grid-template-columns: repeat(2, min(200px, 45%));
 
   label {
     margin-bottom: 1rem;
     font-weight: 600;
     line-height: 1.25rem;
+    grid-column: 1/3;
 
     p {
       margin: 0 0 0.25rem;
@@ -518,12 +531,13 @@ form {
 
   input,
   select {
-    min-width: 25rem;
+    min-width: 100%;
     background: $form-background-color;
     border: 1px solid $dark-text-color;
     border-radius: 5px;
     padding: 0.375rem 0.75rem;
     color: $input-text-color;
+
 
     &[data-error=true] {
       border: solid 1px $danger-color;
@@ -543,7 +557,25 @@ form {
   }
 }
 
+.half-width {
+  max-width: 50%;
 
+  &-left {
+    grid-column: 1/2;
+
+    &>input {
+      max-width: 50%;
+    }
+  }
+
+  &-right {
+    grid-column: 2/3;
+
+    &>input {
+      max-width: 50%;
+    }
+  }
+}
 
 #btn-message {
   color: $text1-color-normal;
@@ -551,11 +583,14 @@ form {
   font-style: italic;
   font-family: trade-gothic-next, sans-serif;
   min-height: 1.5rem;
+  grid-column: 1/3;
 }
 
 .flex {
   display: flex;
   justify-content: space-between;
+  grid-column: 1/3;
+  ;
 }
 
 button {
@@ -597,6 +632,7 @@ button {
   display: flex;
   flex-direction: row;
   margin-bottom: 1.4rem;
+  grid-column: 1/3;
 
   i {
     font-size: 2rem;
