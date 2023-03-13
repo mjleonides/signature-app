@@ -51,12 +51,12 @@
             digits.</span></p>
         <input id="mobile-phone" type="text" v-model="mobilePhone" placeholder="(999) 999-9999" :data-error="errorMobile">
       </label>
-      <label for="office-phone">
+      <label for="office-phone" class="half-width-left">
         <p>Office Phone <span class="error" v-if="errorOffice">Must have 10
             digits.</span></p>
         <input id="office-phone" type="text" v-model="officePhone" placeholder="(999) 999-9999" :data-error="errorOffice">
       </label>
-      <label for="fax">
+      <label for="fax" class="half-width-right">
         <p>Fax Number <span class="error" v-if="errorFax">Must have 10 digits.</span></p>
         <input id="fax" type="text" v-model="fax" placeholder="(999) 999-9999" :data-error="errorFax">
       </label>
@@ -178,7 +178,10 @@
           <tr>
             <td
               style="color:#545454;font-size:10pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:10px;font-family:'Lato', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><span style="color:#545454;font-size:10pt;"><em>{{ position }}</em></span></p>
+              <p style="margin:0px;"><span style="color:#545454;font-size:10pt;"><em>{{ position }}</em></span><span
+                  v-if="pronouns" style="color:#D3D3D3;"> | <span style="color:#545454;font-size:8pt;"><em>({{
+                    pronouns
+                  }})</em></span></span></p>
             </td>
           </tr>
           <tr>
@@ -263,7 +266,10 @@
           <tr>
             <td
               style="color:#545454;font-size:10pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:10px;font-family:'Open Sans', Arial, Helvetica, sans-serif;">
-              <p style="margin:0px;"><span style="color:#545454;font-size:10pt;"><em>{{ position }}</em></span></p>
+              <p style="margin:0px;"><span style="color:#545454;font-size:10pt;"><em>{{ position }}</em></span><span
+                  v-if="pronouns" style="color:#D3D3D3;"> | <span style="color:#545454;font-size:8pt;"><em>({{
+                    pronouns
+                  }})</em></span></span></p>
             </td>
           </tr>
           <tr>
