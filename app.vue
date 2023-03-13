@@ -40,7 +40,7 @@
       </label>
       <label for="certifications" class="half-width-left">
         <p>Certifications</p>
-        <input id="certifications" type="text" v-model="certs" placeholder="CERT, CERT, CERT, CERT, CERT">
+        <input id="certifications" type="text" v-model="certs" placeholder="CERT, CERT, CERT">
       </label>
       <label for="pronouns" class="half-width-right">
         <p>Pronouns</p>
@@ -494,7 +494,7 @@ body {
 .page-container {
   background-color: $form-background-color;
   max-width: 800px;
-  margin: 2rem auto;
+  margin: 0 auto;
   border: solid $primary-color;
   border-radius: 50px 50px 50px 0;
 }
