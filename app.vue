@@ -6,34 +6,54 @@
       Email Signature Generator
     </h1>
     <form>
+      <div id="error-container" v-if="hasErrors">
+        <i class="fa-solid fa-square-exclamation"></i>
+        <div class="errors">
+          <p class="error" v-if="errorBrand"><strong>Whoops! </strong>Brand is required.</p>
+          <p class="error" v-if="errorName"><strong>Whoops! </strong>Name is required.</p>
+          <p class="error" v-if="errorPosition"><strong>Whoops! </strong>Position is required.</p>
+          <p class="error" v-if="errorMobile"><strong>Whoops! </strong>Mobile Phone should be a valid 10-digit phone
+            number.</p>
+          <p class="error" v-if="errorOffice"><strong>Whoops! </strong>Office Phone should be a valid 10-digit phone
+            number.</p>
+          <p class="error" v-if="errorFax"><strong>Whoops! </strong>Fax should be a valid 10-digit fax number.</p>
+        </div>
+      </div>
 
-      <label for="brand-selector">Brand * <span class="error" v-if="errorBrand">Please select brand.</span>
+      <label for="brand-selector">
+        <p>Brand * <span class="error" v-if="errorBrand">Please select brand.</span></p>
         <select id="brand-selector" v-model="brand" :data-error="errorBrand">
-          <option disabled>-- Select Brand --</option>
+          <option>-- Select Brand --</option>
           <option>K2United</option>
           <option>K2Share</option>
           <option>CareerSafe</option>
-        </select></label>
-      <label for="name">Full Name * <span class="error" v-if="errorName">Field is required.</span>
+        </select>
+      </label>
+      <label for="name">
+        <p>Full Name * <span class="error" v-if="errorName">Required Field.</span></p>
         <input id="name" type="text" v-model="name" placeholder="Firstname Lastname" :data-error="errorName">
       </label>
-      <label for="position">Position/Professional Title * <span class="error" v-if="errorPosition">Field is
-          required.</span>
+      <label for="position">
+        <p>Position/Professional Title * <span class="error" v-if="errorPosition">Required Field.</span></p>
         <input id="position" type="text" v-model="position" placeholder="Director of Good Times"
           :data-error="errorPosition">
       </label>
-      <label for="certifications">Certifications (Comma seperated list)
+      <label for="certifications">
+        <p>Certifications (Comma seperated list)</p>
         <input id="certifications" type="text" v-model="certs" placeholder="CERT, CERT, CERT, CERT, CERT">
       </label>
-      <label for="mobile-phone">Mobile Phone <span class="error" v-if="errorMobile">Mobile Phone must have 10
-          digits.</span>
+      <label for="mobile-phone">
+        <p>Mobile Phone <span class="error" v-if="errorMobile">Must have 10
+            digits.</span></p>
         <input id="mobile-phone" type="text" v-model="mobilePhone" placeholder="(999) 999-9999" :data-error="errorMobile">
       </label>
-      <label for="office-phone">Office Phone <span class="error" v-if="errorOffice">Office Phone must have 10
-          digits.</span>
+      <label for="office-phone">
+        <p>Office Phone <span class="error" v-if="errorOffice">Must have 10
+            digits.</span></p>
         <input id="office-phone" type="text" v-model="officePhone" placeholder="(999) 999-9999" :data-error="errorOffice">
       </label>
-      <label for="fax">Fax Number <span class="error" v-if="errorFax">Fax Number must have 10 digits.</span>
+      <label for="fax">
+        <p>Fax Number <span class="error" v-if="errorFax">Must have 10 digits.</span></p>
         <input id="fax" type="text" v-model="fax" placeholder="(999) 999-9999" :data-error="errorFax">
       </label>
       <div class="flex"> <button class="btn-reset">
@@ -316,9 +336,10 @@ export default {
       position: "",
       certs: "", //optional
       mobilePhone: "", //optional :href="'tel:' + formatPhone(mobilePhone)"
-      officePhone: "", //optional :href="'tel:' + formatPhone(officePhone)"
+      officePhone: "(979) 260-0030", //optional :href="'tel:' + formatPhone(officePhone)"
       fax: "", //optional
       //errors
+      hasErrors: false,
       errorBrand: false,
       errorName: false,
       errorPosition: false,
@@ -329,7 +350,7 @@ export default {
   },
   methods: {
     buttonPress() {
-      (this.validateReqs()) ? this.copySign() : console.log("Copy failed, fix required fields pretty please.");
+      (this.validateReqs() === false) ? this.copySign() : console.log("Copy failed, fix required fields pretty please.");
     },
     copySign() {
       const signature = document.querySelector("#signature");
@@ -370,13 +391,13 @@ export default {
       return (certArray?.length > 2)
     },
     validateReqs() {
-      let passing = true;
+      this.hasErrors = false;
 
       if (this.brand !== "-- Select Brand --") { //checks brand selection
         this.errorBrand = false;
       } else {
         this.errorBrand = true;
-        passing = false;
+        this.hasErrors = true;
       }
 
       //checks name
@@ -384,7 +405,7 @@ export default {
         this.errorName = false;
       } else {
         this.errorName = true;
-        passing = false;
+        this.hasErrors = true;
       }
 
       //checks position
@@ -392,7 +413,7 @@ export default {
         this.errorPosition = false;
       } else {
         this.errorPosition = true;
-        passing = false;
+        this.hasErrors = true;
       }
 
       //checks mobile
@@ -400,7 +421,7 @@ export default {
         this.errorMobile = false;
       } else {
         this.errorMobile = true;
-        passing = false;
+        this.hasErrors = true;
       }
 
       //checks office
@@ -408,7 +429,7 @@ export default {
         this.errorOffice = false;
       } else {
         this.errorOffice = true;
-        passing = false;
+        this.hasErrors = true;
       }
 
       //checks fax
@@ -416,26 +437,48 @@ export default {
         this.errorFax = false;
       } else {
         this.errorFax = true;
-        passing = false;
+        this.hasErrors = true;
       }
 
-      return passing;
-    },
+      return this.hasErrors
+    }
   }
 }
 </script>
 
-<style>
+<style lang="scss">
+$text1-color-normal: #767676;
+$text2-color-large: #939393;
+$primary-color: #00245A;
+$secondary-color: #D50032;
+$accent1-color: #FFBC45;
+$accent2-color: #66C2ED;
+$neutral1-color: #F0F0F0;
+$neutral2-color: #D3D3D3;
+$placeholder-color: #DEDEDE;
+$dark-text-color: #3e3e3e;
+$white-color: #ffffff;
+$black-color: #000000;
+
+$danger-color: #C50000;
+
+$form-background-color: $white-color;
+$input-text-color: $dark-text-color;
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-  background-color: rgb(0, 36, 90);
+  background-color: $primary-color;
 
 }
 
 .page-container {
-  background-color: white;
+  background-color: $form-background-color;
   max-width: 800px;
   margin: 2rem auto;
-  border: solid 1px white;
+  border: solid;
   border-radius: 50px 50px 50px 0;
 }
 
@@ -451,7 +494,7 @@ h1 {
   font-family: trade-gothic-next, sans-serif;
   font-weight: 500;
   padding: 0 5%;
-  color: #484848;
+  color: $text1-color-normal;
   font-size: 1.5rem;
 }
 
@@ -460,34 +503,50 @@ form {
   justify-content: center;
   font-family: trade-gothic-next, sans-serif;
   padding: 0 5%;
+
+  label {
+    margin-bottom: 1rem;
+    font-weight: 600;
+    line-height: 1.25rem;
+
+    p {
+      margin: 0 0 0.25rem;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  input,
+  select {
+    min-width: 25rem;
+    background: $form-background-color;
+    border: 1px solid $dark-text-color;
+    border-radius: 5px;
+    padding: 0.375rem 0.75rem;
+    color: $input-text-color;
+
+    &[data-error=true] {
+      border: solid 1px $danger-color;
+    }
+
+    &:focus-visible {
+      outline: solid 2px $accent2-color;
+    }
+  }
+
+  ::placeholder {
+    color: $placeholder-color;
+  }
+
+  .optional-fields-cs input {
+    min-width: 1.5rem;
+  }
 }
 
-label {
-  margin-bottom: 1rem;
-  display: flex;
-  flex-direction: column;
-}
 
-input,
-select {
-  min-width: 30vmax;
-  background: #FFFFFF;
-  border: 1px solid #3E3E3E;
-  border-radius: 4px;
-  padding: 0.25rem 0.75rem;
-}
-
-select[data-error=true],
-input[data-error=true] {
-  outline: solid 2px #C50000;
-}
-
-.optional-fields-cs input {
-  min-width: 1.5rem;
-}
 
 #btn-message {
-  color: grey;
+  color: $text1-color-normal;
   text-align: center;
   font-style: italic;
   font-family: trade-gothic-next, sans-serif;
@@ -496,55 +555,77 @@ input[data-error=true] {
 
 .flex {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 button {
   margin-top: 1rem;
-  border-radius: 4px;
+  border-radius: 5px;
   border: 3px solid;
   font-family: trade-gothic-next, sans-serif;
+  font-size: 0.9rem;
   font-weight: 700;
-  line-height: 1em;
+  line-height: 1.125rem;
   min-width: 9rem;
   padding: 0.5rem 1rem 0.6rem;
   text-align: center;
   cursor: pointer;
+
+  &.btn {
+    color: $white-color;
+    background-color: $primary-color;
+    border-color: $primary-color;
+
+    &-reset {
+      color: $white-color;
+      background-color: $text1-color-normal;
+      border-color: $text1-color-normal;
+    }
+  }
 }
 
-.btn {
-  color: white;
-  background-color: #00245A;
-  border-color: #00245A;
-}
-
-.btn-reset {
-  color: white;
-  background-color: #767676;
-  border-color: #767676;
-}
-
-.btn:hover {
-  background-color: #00183D;
-  border-color: #00183D;
-}
-
-.btn-reset:hover {
-  background-color: #484848;
-  border-color: #484848;
-}
 
 .divider {
   overflow: hidden;
-  border-top: solid 0.5px grey;
+  border-top: solid 0.5px $text1-color-normal;
   margin: 0 10%;
 }
 
-.error {
-  color: #C50000;
+
+
+#error-container {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1.4rem;
+
+  i {
+    font-size: 2rem;
+    color: $danger-color;
+    line-height: 2rem;
+    margin-right: 0.75rem;
+  }
+
+  .errors {
+    border: solid 1px $danger-color;
+    border-radius: 5px;
+    width: 100%;
+    padding: 0.25rem 0.75rem 0.25rem;
+  }
+}
+
+span.error {
+  color: $dark-text-color;
   position: absolute;
   align-self: flex-end;
+  display: none;
 }
+
+p.error {
+  font-size: 12px;
+  line-height: 18px;
+  margin: 0 0 0.25rem;
+}
+
 
 #signature {
   margin: 2rem 10% 4rem;
