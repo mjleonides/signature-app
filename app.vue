@@ -504,6 +504,10 @@ body {
   justify-content: center;
   align-items: center;
   padding: 1rem 0 0;
+
+  img {
+    max-width: max(180px, 32.5%);
+  }
 }
 
 h1 {
