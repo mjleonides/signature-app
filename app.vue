@@ -23,7 +23,7 @@
       <label for="brand-selector">
         <p>Brand * <span class="error" v-if="errorBrand">Please select brand.</span></p>
         <select id="brand-selector" v-model="brand" :data-error="errorBrand">
-          <option>-- Select Brand --</option>
+          <option disabled>-- Select Brand --</option>
           <option>K2United</option>
           <option>K2Share</option>
           <option>CareerSafe</option>
@@ -462,6 +462,22 @@ export default {
 
       return this.hasErrors
     }
+  },
+  mounted() {
+    function definePlaceholderBehavior() {
+      $("input, textarea").each(function () {
+        $(this).focus(function () {
+          let placeholder = $(this).attr("placeholder");
+          if (typeof placeholder !== "undefined" && typeof placeholder !== false) {
+            $(this).attr("placeholder", "");
+            $(this).blur(function () {
+              $(this).attr("placeholder", placeholder);
+            });
+          }
+        });
+      });
+    }
+    definePlaceholderBehavior();
   }
 }
 </script>
