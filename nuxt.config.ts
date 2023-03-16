@@ -6,7 +6,7 @@ export default defineNuxtConfig({
 			//Adobe Fonts
 			link: [
 				{ rel: "stylesheet", href: "https://use.typekit.net/cii6xud.css" },
-				{ rel: "icon", type: "image/x-icon", href: "/favicon.png" },
+				{ rel: "icon", type: "image/x-icon", href: "~/favicon.png" },
 			],
 			script: [
 				{
