@@ -93,9 +93,10 @@
             <td
               style="color:#545454;font-size:10pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:10px;font-family:'Trade Gothic Next', Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><span style="color:#545454;font-size:10pt;"><em>{{ position }}</em></span><span
-                  v-if="pronouns" style="color:#D3D3D3;"> | <span style="color:#545454;font-size:8pt;"><em>({{
-                    pronouns
-                  }})</em></span></span></p>
+                  v-if="pronouns" style="color:#D3D3D3;"><span v-if="pronouns && position"> | </span><span
+                    style="color:#545454;font-size:8pt;"><em>({{
+                      pronouns
+                    }})</em></span></span></p>
             </td>
           </tr>
 
@@ -179,9 +180,10 @@
             <td
               style="color:#545454;font-size:10pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:10px;font-family:'Lato', Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><span style="color:#545454;font-size:10pt;"><em>{{ position }}</em></span><span
-                  v-if="pronouns" style="color:#D3D3D3;"> | <span style="color:#545454;font-size:8pt;"><em>({{
-                    pronouns
-                  }})</em></span></span></p>
+                  v-if="pronouns" style="color:#D3D3D3;"><span v-if="pronouns && position"> | </span><span
+                    style="color:#545454;font-size:8pt;"><em>({{
+                      pronouns
+                    }})</em></span></span></p>
             </td>
           </tr>
           <tr>
@@ -267,9 +269,10 @@
             <td
               style="color:#545454;font-size:10pt;mso-line-height-rule:exactly;line-height:1.2em;padding-bottom:10px;font-family:'Open Sans', Arial, Helvetica, sans-serif;">
               <p style="margin:0px;"><span style="color:#545454;font-size:10pt;"><em>{{ position }}</em></span><span
-                  v-if="pronouns" style="color:#D3D3D3;"> | <span style="color:#545454;font-size:8pt;"><em>({{
-                    pronouns
-                  }})</em></span></span></p>
+                  v-if="pronouns" style="color:#D3D3D3;"><span v-if="pronouns && position"> | </span><span
+                    style="color:#545454;font-size:8pt;"><em>({{
+                      pronouns
+                    }})</em></span></span></p>
             </td>
           </tr>
           <tr>
@@ -476,11 +479,16 @@ $placeholder-color: #DEDEDE;
 $dark-text-color: #3e3e3e;
 $white-color: #ffffff;
 $black-color: #000000;
+$dark-mode-background: #1C1C1C;
+$dark-mode-bg-alt: #343434;
 
 $danger-color: #C50000;
 
 $form-background-color: $white-color;
 $input-text-color: $dark-text-color;
+
+@media (prefers-color-scheme: light) {}
+
 
 * {
   box-sizing: border-box;
@@ -498,6 +506,7 @@ body {
   border: solid $primary-color;
   border-radius: 50px 50px 50px 0;
 }
+
 
 .logo-container {
   display: flex;
@@ -536,6 +545,7 @@ form {
       margin: 0 0 0.25rem;
       display: flex;
       flex-direction: column;
+      color: $input-text-color;
     }
   }
 
@@ -656,6 +666,7 @@ button {
     border-radius: 5px;
     width: 100%;
     padding: 0.25rem 0.75rem 0.25rem;
+    color: $input-text-color;
   }
 }
 
@@ -672,8 +683,41 @@ p.error {
   margin: 0 0 0.25rem;
 }
 
+/* @media (prefers-color-scheme: dark) {
+  .page-container {
+    background-color: $dark-mode-background;
+  }
+
+  h1 {
+    color: $white-color;
+  }
+
+  form {
+    label p {
+      color: $white-color;
+    }
+
+    select,
+    input {
+      color: $white-color;
+      background: $dark-mode-background;
+    }
+  }
+
+  .errors p {
+    color: $white-color;
+  }
+
+  #signature {
+    //background-color: $dark-mode-bg-alt;
+    border-radius: 50px;
+  }
+
+} */
+
 
 #signature {
   margin: 2rem 10% 4rem;
+  padding: 0.5rem 1.5rem 1.5rem;
 }
 </style>
