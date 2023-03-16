@@ -3,6 +3,7 @@ export default defineNuxtConfig({
 	app: {
 		baseURL: "/signature-app/",
 		head: {
+			title: "Email Signature Generator | K2United",
 			//Adobe Fonts
 			link: [
 				{ rel: "stylesheet", href: "https://use.typekit.net/cii6xud.css" },
