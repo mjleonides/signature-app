@@ -477,7 +477,7 @@ export default {
         });
       });
     }
-    definePlaceholderBehavior();
+    //definePlaceholderBehavior();
   }
 }
 </script>
@@ -573,6 +573,7 @@ form {
     border-radius: 5px;
     padding: 0.375rem 0.75rem;
     color: $input-text-color;
+    min-height: 1.95rem;
 
 
     &[data-error=true] {
@@ -730,6 +731,10 @@ p.error {
   }
 
 } */
+
+input:focus::placeholder {
+  color: transparent;
+}
 
 
 #signature {
