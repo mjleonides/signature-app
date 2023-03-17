@@ -20,11 +20,16 @@
         </div>
       </div>
 
-      <p class="instructions">To create your email signature, select the desired brand, provide the required information,
-        and fill out any of the optional fields you would like to add to your signature. Once you have entered your
-        information, review the signature preview below, then click the <strong>Copy to Clipboard</strong> button. The <a
-          href="https://portal.k2share.com/display/HR/Email+Signature">Email Signature page</a>
-        provides instructions on how to add your new, branded signature to your Outlook Email Signatures.</p>
+      <div class="instructions">
+        <p>To create your email signature, select the desired brand, provide the required
+          information,
+          and fill out any of the optional fields you would like to add to your signature.</p><br>
+        <p>Once you have entered your
+          information, review the signature preview below, then click the <strong>Copy to Clipboard</strong> button. The
+          <a href="https://portal.k2share.com/display/HR/Email+Signature">Email Signature page</a>
+          provides instructions on how to add your new, branded signature to your Outlook Email Signatures.
+        </p>
+      </div>
 
       <label for="brand-selector">
         <p>Brand <span class="required">(required)</span></p>
@@ -505,6 +510,7 @@ $black-color: #000000;
 $dark-mode-background: #1C1C1C;
 $dark-mode-bg-alt: #343434;
 
+$link-color: #006DCC;
 $danger-color: #C50000;
 
 $form-background-color: $white-color;
@@ -559,19 +565,28 @@ form {
   gap: 0 1rem;
   grid-template-columns: repeat(2, min(200px, 45%));
 
-  .instructions {
+  div.instructions {
     grid-column: 1/3;
     font-size: 0.8333rem;
     color: $dark-text-color;
     margin: 1em 0 2em;
+    text-align: justify;
+
+    p {
+      margin: 0;
+    }
 
     a {
       text-decoration: none;
       font-weight: 700;
-      color: inherit;
+      color: $link-color;
 
       &:hover {
         text-decoration: underline;
+      }
+
+      &:visited {
+        color: $link-color;
       }
     }
   }
