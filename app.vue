@@ -10,8 +10,8 @@
         <i class="fa-solid fa-square-exclamation"></i>
         <div class="errors">
           <p class="error" v-if="errorBrand"><strong>Whoops! </strong>Brand is required.</p>
-          <p class="error" v-if="errorName"><strong>Whoops! </strong>Name is required.</p>
-          <p class="error" v-if="errorPosition"><strong>Whoops! </strong>Position is required.</p>
+          <p class="error" v-if="errorName"><strong>Whoops! </strong>Full Name is required.</p>
+          <p class="error" v-if="errorPosition"><strong>Whoops! </strong>Position/Professional Title is required.</p>
           <p class="error" v-if="errorMobile"><strong>Whoops! </strong>Mobile Phone should be a valid 10-digit phone
             number.</p>
           <p class="error" v-if="errorOffice"><strong>Whoops! </strong>Office Phone should be a valid 10-digit phone
@@ -20,8 +20,14 @@
         </div>
       </div>
 
+      <p class="instructions">To create your email signature, select the desired brand, provide the required information,
+        and fill out any of the optional fields you would like to add to your signature. Once you have entered your
+        information, review the signature preview below, then click the <strong>Copy to Clipboard</strong> button. The <a
+          href="https://portal.k2share.com/display/HR/Email+Signature">Email Signature page</a>
+        provides instructions on how to add your new, branded signature to your Outlook Email Signatures.</p>
+
       <label for="brand-selector">
-        <p>Brand * <span class="error" v-if="errorBrand">Please select brand.</span></p>
+        <p>Brand <span class="required">(required)</span></p>
         <select id="brand-selector" v-model="brand" :data-error="errorBrand">
           <option disabled>-- Select Brand --</option>
           <option>K2United</option>
@@ -30,11 +36,12 @@
         </select>
       </label>
       <label for="name">
-        <p>Full Name * <span class="error" v-if="errorName">Required Field.</span></p>
+        <p>Full Name <span class="required">(required)</span>
+        </p>
         <input id="name" type="text" v-model="name" placeholder="Firstname Lastname" :data-error="errorName">
       </label>
       <label for="position">
-        <p>Position/Professional Title * <span class="error" v-if="errorPosition">Required Field.</span></p>
+        <p>Position/Professional Title <span class="required">(required)</span></p>
         <input id="position" type="text" v-model="position" placeholder="Director of Good Times"
           :data-error="errorPosition">
       </label>
@@ -542,6 +549,7 @@ h1 {
   padding: 0 5%;
   color: $text1-color-normal;
   font-size: 1.5rem;
+  margin: 1rem 0 0;
 }
 
 form {
@@ -551,6 +559,23 @@ form {
   gap: 0 1rem;
   grid-template-columns: repeat(2, min(200px, 45%));
 
+  .instructions {
+    grid-column: 1/3;
+    font-size: 0.8333rem;
+    color: $dark-text-color;
+    margin: 1em 0 2em;
+
+    a {
+      text-decoration: none;
+      font-weight: 700;
+      color: inherit;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
   label {
     margin-bottom: 1rem;
     font-weight: 600;
@@ -559,9 +584,11 @@ form {
 
     p {
       margin: 0 0 0.25rem;
-      display: flex;
-      flex-direction: column;
       color: $input-text-color;
+
+      span.required {
+        font-weight: 400;
+      }
     }
   }
 
@@ -574,6 +601,7 @@ form {
     padding: 0.375rem 0.75rem;
     color: $input-text-color;
     height: 1.95rem;
+    font-family: trade-gothic-next, sans-serif;
 
 
     &[data-error=true] {
@@ -668,8 +696,8 @@ button {
 #error-container {
   display: flex;
   flex-direction: row;
-  margin-bottom: 1.4rem;
   grid-column: 1/3;
+  margin-top: 1rem;
 
   i {
     font-size: 2rem;
@@ -726,7 +754,7 @@ p.error {
   }
 
   #signature {
-    //background-color: $dark-mode-bg-alt;
+    background-color: $white-color;
     border-radius: 50px;
   }
 
