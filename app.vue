@@ -422,11 +422,11 @@ export default {
       return (phoneArray?.length === 10)
     },
     formatCerts(input) {
-      const certArray = input.match(/([a-z\d.])+/gi);
+      const certArray = input.match(/([a-z\d\s.])+/gi);
       return (certArray?.length > 2) ? certArray.join(", ") : (certArray) ? ", " + certArray.join(", ") : "";
     },
     validateCerts(input) {
-      const certArray = input.match(/([a-z\d.])+/gi);
+      const certArray = input.match(/([a-z\d\s.])+/gi);
       return (certArray?.length > 2)
     },
     validateReqs() {
