@@ -384,27 +384,34 @@ export default {
     buttonPress() {
       (this.validateReqs() === false) ? this.copySign() : console.log("Copy failed, fix required fields pretty please.");
     },
+    copyMessage(status) {
+      document.querySelector("#btn-message").innerHTML = "Signature " + status;
+      setTimeout(() => { document.querySelector("#btn-message").innerHTML = "" }, 2000)
+    },
     copySign() {
       const signature = document.querySelector("#signature");
-      //document.getSelection().selectAllChildren(signature); //if using execCommand
-      //document.execCommand("copy"); //execCommand is deprecated, ff users must manually enable ClipboardItem tho
 
-      //Modern Clipboard API method
-      const selection = [new ClipboardItem({
-        "text/html": new Blob([signature.innerHTML], {
-          type: "text/html",
-        })
-      })];
+      if (navigator.clipboard.write) { //checks for ClipboardAPI method needed to work
+        //Modern Clipboard API method
+        const selection = [new ClipboardItem({
+          "text/html": new Blob([signature.innerHTML], {
+            type: "text/html",
+          })
+        })];
 
-      navigator.clipboard.write(selection).then(() => {
-        console.log('Content copied to clipboard');
-        document.querySelector("#btn-message").innerHTML = "Signature Copied!";
-        setTimeout(() => { document.querySelector("#btn-message").innerHTML = "" }, 2000)
-      }, () => {
-        console.error('Failed to copy');
-        document.querySelector("#btn-message").innerHTML = "Signature Copy Failed";
-        setTimeout(() => { document.querySelector("#btn-message").innerHTML = "" }, 2000)
-      });
+        navigator.clipboard.write(selection).then(() => {
+          console.log('Content copied to clipboard');
+          this.copyMessage("Copied!");
+        }, () => {
+          console.error('Failed to copy');
+          this.copyMessage("Failed");
+        });
+      } else { //uses execCommand if ClipboardAPI not available
+        document.getSelection().selectAllChildren(signature); //if using execCommand
+        document.execCommand("copy"); //execCommand is deprecated, ff users must manually enable ClipboardItem tho  
+        this.copyMessage("Copied!");
+      }
+
     },
     formatPhone(input) {
       const digits = input.match(/\d/g);
