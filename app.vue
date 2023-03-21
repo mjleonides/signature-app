@@ -89,7 +89,6 @@
 
     <!-------------------------------- Start K2United Email Signature HTML------------------------------------->
     <div id="signature" v-if="brand === 'K2United'">
-      <br>
       <table cellspacing="0" cellpadding="0" border="0"
         style="border-collapse: separate;table-layout: fixed;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;max-width:100%;"
         emb-background-style width="100%">
@@ -176,7 +175,6 @@
 
     <!-------------------------------- Start K2Share Email Signature HTML------------------------------------->
     <div id="signature" v-if="brand === 'K2Share'">
-      <br>
       <table cellspacing="0" cellpadding="0" border="0"
         style="border-collapse: separate;table-layout: fixed;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;max-width:100%;"
         emb-background-style width="100%">
@@ -265,7 +263,6 @@
 
     <!-------------------------------- Start CareerSafe Email Signature HTML------------------------------------->
     <div id="signature" v-if="brand === 'CareerSafe'">
-      <br>
       <table cellspacing="0" cellpadding="0" border="0"
         style="border-collapse: separate;table-layout: fixed;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;max-width:100%;"
         emb-background-style width="100%">
